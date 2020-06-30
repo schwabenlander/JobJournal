@@ -72,6 +72,7 @@ namespace JobJournal.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseAuthentication();
