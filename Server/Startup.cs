@@ -35,6 +35,7 @@ namespace JobJournal.Server
 
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyContactRepository, CompanyContactRepository>();
+            services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
 
             services.AddCors(options =>
             {
