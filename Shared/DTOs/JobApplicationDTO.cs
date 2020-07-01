@@ -21,9 +21,11 @@ namespace JobJournal.Shared.DTOs
         public DateTime ApplicationDate { get; set; }
 
         [Display(Name = "First Method")]
+        [Range(1, 9)]
         public int ApplicationMethod { get; set; }
 
         [Display(Name = "Application Status")]
+        [Range(1, 5)]
         public int ApplicationStatus { get; set; }
     }
 }
