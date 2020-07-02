@@ -59,19 +59,49 @@ namespace JobJournal.Server.Controllers
 
         // POST api/company
         [HttpPost]
-        public void PostCompany([FromBody] CompanyDTO company)
+        public async Task<ActionResult<CompanyDTO>> AddCompany([FromBody] CompanyDTO companyDTO)
         {
+            try
+            {
+                var company = _mapper.Map<Company>(companyDTO);
+                var newCompany = await _repository.AddCompany(company);
+
+                return CreatedAtAction(nameof(GetCompany), new { id = newCompany.Id }, _mapper.Map<CompanyDTO>(newCompany));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
         }
 
         // PUT api/company/ad94a572-5104-4303-82f7-fac0a7d06897
         [HttpPut("{id:Guid}")]
-        public void PutCompany(Guid id, [FromBody] CompanyDTO company)
+        public async Task<ActionResult> UpdateCompany(Guid id, [FromBody] CompanyDTO companyDTO)
         {
+            if (id != companyDTO.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var company = _mapper.Map<Company>(companyDTO);
+
+                await _repository.UpdateCompany(company);
+
+                return NoContent();
+            }
+            catch
+            {
+                // TODO: Log exception
+                return NotFound();
+            }
         }
 
         // DELETE api/company/ad94a572-5104-4303-82f7-fac0a7d06897
         [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult> DeleteCompanyAsync(Guid id)
+        public async Task<ActionResult> DeleteCompany(Guid id)
         {
             try
             {
@@ -84,17 +114,5 @@ namespace JobJournal.Server.Controllers
                 return BadRequest();
             }
         }
-
-        private static CompanyDTO CompanyToDTO(Company company) =>
-            new CompanyDTO
-            {
-                Id = company.Id,
-                CompanyName = company.CompanyName,
-                WebsiteURI = company.WebsiteURI,
-                PhoneNumber = company.PhoneNumber,
-                EmailAddress = company.EmailAddress,
-                City = company.City,
-                State = company.State
-            };
     }
 }
