@@ -11,6 +11,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using JobJournal.Server.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace JobJournal.Server
 {
@@ -36,6 +37,15 @@ namespace JobJournal.Server
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyContactRepository, CompanyContactRepository>();
             services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddCors(options =>
             {

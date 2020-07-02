@@ -38,7 +38,7 @@ namespace JobJournal.Server.Data
             return await _db.JobApplications.FindAsync(applicationId);
         }
 
-        public IEnumerable<JobApplication> GetJobApplicationsForUser(Guid userId)
+        public IQueryable<JobApplication> GetJobApplicationsForUser(Guid userId)
         {
             return _db.JobApplications.Where(j => j.UserId == userId);
         }

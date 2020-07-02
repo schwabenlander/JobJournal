@@ -9,7 +9,7 @@ namespace JobJournal.Server.Data
     public interface ICompanyRepository
     {
         Task<Company> GetCompany(Guid companyId);
-        IEnumerable<Company> GetCompaniesForUser(Guid userId);
+        IQueryable<Company> GetCompaniesForUser(Guid userId);
         Task<Company> AddCompany(Company company);
         Task<Company> UpdateCompany(Company company);
         Task DeleteCompany(Guid companyId);

@@ -37,7 +37,7 @@ namespace JobJournal.Server.Data
             return await _db.CompanyContacts.FindAsync(contactId);
         }
 
-        public IEnumerable<CompanyContact> GetContactsForCompany(Guid companyId)
+        public IQueryable<CompanyContact> GetContactsForCompany(Guid companyId)
         {
             return _db.CompanyContacts.Where(c => c.CompanyId == companyId);
         }

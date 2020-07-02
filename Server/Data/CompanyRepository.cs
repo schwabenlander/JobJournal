@@ -20,7 +20,7 @@ namespace JobJournal.Server.Data
             return await _db.Companies.FindAsync(companyId);
         }
 
-        public IEnumerable<Company> GetCompaniesForUser(Guid userId)
+        public IQueryable<Company> GetCompaniesForUser(Guid userId)
         {
             return _db.Companies.Where(c => c.UserId == userId);
         }

@@ -9,7 +9,7 @@ namespace JobJournal.Server.Data
     interface ICompanyContactRepository
     {
         Task<CompanyContact> GetCompanyContact(Guid contactId);
-        IEnumerable<CompanyContact> GetContactsForCompany(Guid companyId);
+        IQueryable<CompanyContact> GetContactsForCompany(Guid companyId);
         Task<CompanyContact> AddCompanyContact(CompanyContact companyContact);
         Task<CompanyContact> UpdateCompanyContact(CompanyContact companyContact);
         Task DeleteCompanyContact(Guid contactId);
