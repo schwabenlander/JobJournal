@@ -28,7 +28,7 @@ namespace JobJournal.Server.Controllers
 
         // GET: api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8
         [HttpGet("all/{userId:Guid}")]
-        public async Task<ActionResult<IQueryable<CompanyDTO>>> GetAllCompaniesAsync(Guid userId)
+        public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetAllCompaniesAsync(Guid userId)
         {
             try 
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobJournal.Server.Data
 {
-    interface ICompanyContactRepository
+    public interface ICompanyContactRepository
     {
         Task<CompanyContact> GetCompanyContact(Guid contactId);
         IQueryable<CompanyContact> GetContactsForCompany(Guid companyId);
