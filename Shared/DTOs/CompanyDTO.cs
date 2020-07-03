@@ -9,6 +9,8 @@ namespace JobJournal.Shared.DTOs
     {
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
+
         [Required]
         [Display(Name = "Company Name")]
         [StringLength(50)]

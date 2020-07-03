@@ -87,7 +87,6 @@ namespace JobJournal.Server.Controllers
             try
             {
                 var company = _mapper.Map<Company>(companyDTO);
-
                 await _repository.UpdateCompany(company);
 
                 return NoContent();

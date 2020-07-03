@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JobJournal.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class CompanyContactController : ControllerBase
     {
         private readonly ICompanyContactRepository _repository;
@@ -24,9 +24,9 @@ namespace JobJournal.Server.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/companycontacts/1E98B65B-C56D-470D-B509-148AC693A013
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<IEnumerable<CompanyContactDTO>>> GetCompanyContactsAsync(Guid id)
+        // GET: api/company/AD94A572-5104-4303-82F7-FAC0A7D06897/contacts
+        [HttpGet("company/{id:Guid}/contacts")]
+        public async Task<ActionResult<IEnumerable<CompanyContactDTO>>> GetCompanyContacts(Guid id)
         {
             try
             {
@@ -39,29 +39,77 @@ namespace JobJournal.Server.Controllers
             }
         }
 
-        // GET api/<CompanyContactController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
+        [HttpGet("companycontact/{id:Guid}")]
+        public async Task<ActionResult<CompanyContactDTO>> GetCompanyContact(Guid id)
         {
-            return "value";
+            try
+            {
+                var contact = await _repository.GetCompanyContact(id);
+                return Ok(_mapper.Map<CompanyContactDTO>(contact));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return NotFound();
+            }
         }
 
-        // POST api/<CompanyContactController>
+        // POST api/companycontact
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> PostAsync([FromBody] CompanyContactDTO contactDTO)
         {
+            try
+            {
+                var contact = _mapper.Map<CompanyContact>(contactDTO);
+                var newContact = await _repository.AddCompanyContact(contact);
+
+                return CreatedAtAction(nameof(GetCompanyContact), new { id = newContact.Id }, _mapper.Map<CompanyContactDTO>(newContact));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
         }
 
-        // PUT api/<CompanyContactController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> Put(Guid id, [FromBody] CompanyContactDTO contactDTO)
         {
+            if (id != contactDTO.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var contact = _mapper.Map<CompanyContact>(contactDTO);
+                await _repository.UpdateCompanyContact(contact);
+
+                return NoContent();
+            }
+            catch
+            {
+                // TODO: Log exception
+                return NotFound();
+            }
         }
 
-        // DELETE api/<CompanyContactController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> DeleteAsync(Guid id)
         {
+            try
+            {
+                await _repository.DeleteCompanyContact(id);
+                return NoContent();
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
         }
     }
 }

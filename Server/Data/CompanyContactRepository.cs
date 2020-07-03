@@ -1,4 +1,5 @@
 ﻿using JobJournal.Shared;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace JobJournal.Server.Data
 
         public async Task<CompanyContact> GetCompanyContact(Guid contactId)
         {
-            return await _db.CompanyContacts.FindAsync(contactId);
+            return await _db.CompanyContacts.Include(c => c.Company).FirstAsync(c => c.Id == contactId);
         }
 
         public IQueryable<CompanyContact> GetContactsForCompany(Guid companyId)
