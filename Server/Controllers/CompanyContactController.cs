@@ -56,8 +56,8 @@ namespace JobJournal.Server.Controllers
         }
 
         // POST api/companycontact
-        [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] CompanyContactDTO contactDTO)
+        [HttpPost("companycontact")]
+        public async Task<ActionResult> AddCompanyContact([FromBody] CompanyContactDTO contactDTO)
         {
             try
             {
@@ -74,8 +74,8 @@ namespace JobJournal.Server.Controllers
         }
 
         // PUT api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] CompanyContactDTO contactDTO)
+        [HttpPut("companycontact/{id:Guid}")]
+        public async Task<ActionResult> UpdateCompanyContact(Guid id, [FromBody] CompanyContactDTO contactDTO)
         {
             if (id != contactDTO.Id)
             {
@@ -97,8 +97,8 @@ namespace JobJournal.Server.Controllers
         }
 
         // DELETE api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
-        [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult> DeleteAsync(Guid id)
+        [HttpDelete("companycontact/{id:Guid}")]
+        public async Task<ActionResult> DeleteCompanyContact(Guid id)
         {
             try
             {

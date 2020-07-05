@@ -35,7 +35,7 @@ namespace JobJournal.Server.Data
 
         public async Task<CompanyContact> GetCompanyContact(Guid contactId)
         {
-            return await _db.CompanyContacts.Include(c => c.Company).FirstAsync(c => c.Id == contactId);
+            return await _db.CompanyContacts.FirstAsync(c => c.Id == contactId);
         }
 
         public IQueryable<CompanyContact> GetContactsForCompany(Guid companyId)
