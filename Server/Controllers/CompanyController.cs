@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobJournal.Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CompanyController : ControllerBase

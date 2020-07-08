@@ -6,11 +6,13 @@ using AutoMapper;
 using JobJournal.Server.Data;
 using JobJournal.Shared;
 using JobJournal.Shared.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobJournal.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api")]
     public class CompanyContactController : ControllerBase

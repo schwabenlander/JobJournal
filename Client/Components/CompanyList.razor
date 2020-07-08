@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+
+@if (companies == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p>There are @companies.Count companies in your profile.</p>
+    <ul>
+        @foreach (var company in companies)
+        {
+            <li>@company.CompanyName</li>
+        }
+    </ul>
+}
+
+@code {
+    List<CompanyDTO> companies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            companies = await Http.GetFromJsonAsync<List<CompanyDTO>>("api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}
