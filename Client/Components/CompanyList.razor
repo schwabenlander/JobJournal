@@ -4,17 +4,32 @@
 
 @if (companies == null)
 {
-    <h1><i class="fas fa-spinner fa-spin"></i></h1>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 }
 else
 {
-    <p>There are @companies.Count companies in your profile.</p>
-    <ul>
-        @foreach (var company in companies)
-        {
-            <li>@company.CompanyName</li>
-        }
-    </ul>
+    <h1>Companies</h1>
+    <p>You have @companies.Count companies in your profile.</p>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in companies)
+            {
+                <CompanyListRow Company="company" />
+            }
+        </tbody>
+    </table>
 }
 
 @code {

@@ -1,0 +1,16 @@
+﻿@inject HttpClient Http
+
+    <tr>
+        <th scope="row">@Company.CompanyName</th>
+        <td>@Company.City</td>
+        <td>@Company.State</td>
+        <td>
+            <button type="button" class="btn btn-primary">Edit</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+        </td>
+    </tr>
+
+@code {
+    [Parameter]
+    public CompanyDTO Company { get; set; }
+}
