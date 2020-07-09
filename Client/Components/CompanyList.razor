@@ -35,11 +35,14 @@ else
 @code {
     List<CompanyDTO> companies;
 
+    [Parameter]
+    public Guid UserId { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            companies = await Http.GetFromJsonAsync<List<CompanyDTO>>("api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8");
+            companies = await Http.GetFromJsonAsync<List<CompanyDTO>>($"api/company/all/{UserId.ToString()}");
         }
         catch (AccessTokenNotAvailableException exception)
         {

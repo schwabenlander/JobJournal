@@ -5,12 +5,22 @@
         <td>@Company.City</td>
         <td>@Company.State</td>
         <td>
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-primary" @onclick="Edit">Edit</button>
+            <button type="button" class="btn btn-danger" @onclick="Delete">Delete</button>
         </td>
     </tr>
 
 @code {
     [Parameter]
     public CompanyDTO Company { get; set; }
+
+    protected void Edit(MouseEventArgs args)
+    {
+        Console.WriteLine($"Editing company: {Company.CompanyName}");
+    }
+
+    protected void Delete(MouseEventArgs args)
+    {
+        Console.WriteLine($"Deleting company: {Company.CompanyName}");
+    }
 }

@@ -1,10 +1,23 @@
 ﻿@page "/companies"
+@using System.Security.Claims
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
-<CompanyList />
+<CompanyList UserId="UserId" />
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
 
+    private ClaimsPrincipal principal;
+
+    private Guid UserId { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        principal = (await authState).User;
+        UserId = Guid.Parse(principal.FindFirst("oid").Value);
+    }
 }

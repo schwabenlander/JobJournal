@@ -6,8 +6,10 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<input type="number" @bind="currentCount" @bind:event="oninput"/>
+
 @code {
-    private int currentCount = 0;
+    private int currentCount = 3;
 
     private void IncrementCount()
     {
