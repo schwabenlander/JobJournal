@@ -1,18 +1,25 @@
 ﻿@inject HttpClient Http
+@inject NavigationManager NavigationManager
 
-    <tr>
-        <th scope="row">@Company.CompanyName</th>
-        <td>@Company.City</td>
-        <td>@Company.State</td>
-        <td>
-            <button type="button" class="btn btn-primary" @onclick="Edit">Edit</button>
-            <button type="button" class="btn btn-danger" @onclick="Delete">Delete</button>
-        </td>
-    </tr>
+<tr>
+    <th scope="row">@Company.CompanyName</th>
+    <td>@Company.City</td>
+    <td>@Company.State</td>
+    <td>
+        <button type="button" class="btn btn-primary" @onclick="Details">Details</button>
+        <button type="button" class="btn btn-secondary" @onclick="Edit">Edit</button>
+        <button type="button" class="btn btn-danger" @onclick="Delete">Delete</button>
+    </td>
+</tr>
 
 @code {
     [Parameter]
     public CompanyDTO Company { get; set; }
+
+    protected void Details(MouseEventArgs args)
+    {
+        NavigationManager.NavigateTo($"company/{Company.Id}");
+    }
 
     protected void Edit(MouseEventArgs args)
     {
