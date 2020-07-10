@@ -5,7 +5,9 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
-<CompanyList UserId="UserId" />
+<CascadingValue Value="UserId">
+    <CompanyList />
+</CascadingValue>
 
 @code {
     [CascadingParameter]

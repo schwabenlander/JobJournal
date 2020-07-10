@@ -26,7 +26,7 @@ else
         <tbody>
             @foreach (var company in companies)
             {
-                <CompanyListRow Company="company" />
+                <CompanyListRow @key="company" Company="company" />
             }
         </tbody>
     </table>
@@ -35,7 +35,7 @@ else
 @code {
     List<CompanyDTO> companies;
 
-    [Parameter]
+    [CascadingParameter]
     public Guid UserId { get; set; }
 
     protected override async Task OnInitializedAsync()
