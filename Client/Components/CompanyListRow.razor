@@ -6,27 +6,47 @@
     <td>@Company.City</td>
     <td>@Company.State</td>
     <td>
-        <button type="button" class="btn btn-primary" @onclick="Details">Details</button>
+        <button type="button" class="btn btn-primary" @onclick="ToggleDetails">Details <i class="@detailsIcon"></i></button>
         <button type="button" class="btn btn-secondary" @onclick="Edit">Edit</button>
         <button type="button" class="btn btn-danger" @onclick="Delete">Delete</button>
     </td>
 </tr>
+@if (showDetails)
+{
+    <CompanyDetailsRow Company="Company" OnHideDetails="ToggleDetails" />
+}
+
 
 @code {
     [Parameter]
     public CompanyDTO Company { get; set; }
 
-    protected void Details(MouseEventArgs args)
+    private bool showDetails { get; set; } = false;
+    private string detailsIcon { get; set; } = "oi oi-caret-bottom";
+
+    protected void Details()
     {
         NavigationManager.NavigateTo($"company/{Company.Id}");
     }
 
-    protected void Edit(MouseEventArgs args)
+    protected void ToggleDetails()
+    {
+        showDetails = !showDetails;
+
+        if (showDetails)
+            detailsIcon = "oi oi-caret-top";
+        else
+            detailsIcon = "oi oi-caret-bottom";
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected void Edit()
     {
         Console.WriteLine($"Editing company: {Company.CompanyName}");
     }
 
-    protected void Delete(MouseEventArgs args)
+    protected void Delete()
     {
         Console.WriteLine($"Deleting company: {Company.CompanyName}");
     }
