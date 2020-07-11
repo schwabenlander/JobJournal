@@ -6,9 +6,9 @@
     <td>@Company.City</td>
     <td>@Company.State</td>
     <td>
-        <button type="button" class="btn btn-primary" @onclick="ToggleDetails">Details <i class="@detailsIcon"></i></button>
-        <button type="button" class="btn btn-secondary" @onclick="Edit">Edit</button>
-        <button type="button" class="btn btn-danger" @onclick="Delete">Delete</button>
+        <button type="button" class="btn btn-outline-primary" @onclick="ToggleDetails">Details <i class="@detailsIcon"></i></button>
+        <button type="button" class="btn btn-outline-secondary" @onclick="Edit">Edit</button>
+        <button type="button" class="btn btn-outline-danger" @onclick="Delete">Delete</button>
     </td>
 </tr>
 @if (showDetails)
