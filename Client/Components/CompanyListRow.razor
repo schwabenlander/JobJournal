@@ -18,8 +18,12 @@
 
 <ModalDialog @ref="DeleteModal" ModalTitle="Delete Company" OnDialogClosed="DeleteModalClosed">
     <ModalContent>
-        <p>Are you sure you want to delete this company?</p>
+        <p>Are you sure you want to delete <strong>@Company.CompanyName</strong>?</p>
     </ModalContent>
+    <ModalFooter>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @onclick="DeleteModal.Hide">Cancel</button>
+    </ModalFooter>
 </ModalDialog>
 
 @code {
