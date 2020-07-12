@@ -11,5 +11,11 @@ namespace JobJournal.Client.Services
         Task<IEnumerable<CompanyDTO>> GetCompaniesAsync(Guid userId);
 
         Task<CompanyDTO> GetCompanyAsync(Guid id);
+
+        Task<CompanyDTO> AddCompanyAsync(CompanyDTO company);
+
+        Task UpdateCompanyAsync(CompanyDTO company);
+
+        Task DeleteCompanyAsync(Guid id);
     }
 }

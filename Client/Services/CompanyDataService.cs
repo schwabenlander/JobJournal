@@ -27,9 +27,9 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<CompanyDTO>($"api/company/{id}");
         }
 
-        public async Task<CompanyDTO> PostCompanyAsync(CompanyDTO company)
+        public async Task<CompanyDTO> AddCompanyAsync(CompanyDTO company)
         {
-            var response = await _httpClient.PostAsJsonAsync<CompanyDTO>("api/company", company);
+            var response = await _httpClient.PostAsJsonAsync("api/company", company);
 
             if (response.IsSuccessStatusCode)
             {
@@ -37,6 +37,16 @@ namespace JobJournal.Client.Services
             }
 
             return null;
+        }
+
+        public async Task UpdateCompanyAsync(CompanyDTO company)
+        {
+            await _httpClient.PutAsJsonAsync($"api/company/{company.Id}", company);
+        }
+
+        public async Task DeleteCompanyAsync(Guid id)
+        {
+            await _httpClient.DeleteAsync($"api/company/{id}");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject HttpClient Http
+@inject ICompanyDataService CompanyDataService
 
 <h1>Companies</h1>
 
@@ -37,7 +37,7 @@
     {
         try
         {
-            companies = await Http.GetFromJsonAsync<List<CompanyDTO>>($"api/company/all/{UserId.ToString()}");
+            companies = (await CompanyDataService.GetCompaniesAsync(UserId)).ToList();
         }
         catch (AccessTokenNotAvailableException exception)
         {
