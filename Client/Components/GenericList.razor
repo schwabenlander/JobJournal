@@ -7,19 +7,11 @@
 
 @if (Items == null)
 {
-    @if (NullTemplate != null)
-    {
-        @NullTemplate
-    }
-    else
-    {
-        // Default Content
-        <div style="padding: 25px 50px 25px;">
-            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+    <div style="padding: 25px 50px 25px;">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-    }
+    </div>
 }
 else if (Items.Count == 0)
 {
@@ -43,9 +35,6 @@ else
 }
 
 @code {
-    [Parameter]
-    public RenderFragment NullTemplate { get; set; }
-
     [Parameter]
     public RenderFragment EmptyTemplate { get; set; }
 

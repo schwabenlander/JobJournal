@@ -16,10 +16,15 @@
     <CompanyDetailsRow Company="Company" OnHideDetails="ToggleDetails" />
 }
 
+<ModalDialog @ref="DeleteModal" ModalTitle="Delete Company">
+    <p>Are you sure you want to delete this company?</p>
+</ModalDialog>
 
 @code {
     [Parameter]
     public CompanyDTO Company { get; set; }
+
+    ModalDialog DeleteModal { get; set; }
 
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
@@ -49,5 +54,6 @@
     protected void Delete()
     {
         Console.WriteLine($"Deleting company: {Company.CompanyName}");
+        DeleteModal.Show();
     }
 }

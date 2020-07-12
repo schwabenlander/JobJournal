@@ -1,0 +1,45 @@
+﻿@if (isVisible)
+{
+    <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@ModalTitle</h5>
+                    <button type="button" class="close" @onclick="Hide" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="Hide" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string ModalTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    bool isVisible { get; set; }
+
+    public void Show()
+    {
+        isVisible = true;
+        Console.WriteLine("Showing dialog...");
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Hide()
+    {
+        isVisible = false;
+        InvokeAsync(StateHasChanged);
+    }
+}
