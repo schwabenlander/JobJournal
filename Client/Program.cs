@@ -24,6 +24,10 @@ namespace JobJournal.Client
 
             builder.Services.AddHttpClient<ICompanyDataService, CompanyDataService>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+            builder.Services.AddHttpClient<ICompanyContactDataService, CompanyContactDataService>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+                .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+            builder.Services.AddHttpClient<IJobApplicationDataService, JobApplicationDataService>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+                .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("JobJournal.ServerAPI"));
