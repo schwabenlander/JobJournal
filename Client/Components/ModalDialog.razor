@@ -11,12 +11,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @ChildContent
+                    @ModalContent
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @onclick="Hide" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">OK</button>
-                </div>
+                @if (ModalFooter != null)
+                {
+                    <div class="modal-footer">
+                        @ModalFooter
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -27,7 +29,10 @@
     public string ModalTitle { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ModalContent { get; set; }
+
+    [Parameter]
+    public RenderFragment ModalFooter { get; set; }
 
     [Parameter]
     public EventCallback<bool> OnDialogClosed { get; set; }
