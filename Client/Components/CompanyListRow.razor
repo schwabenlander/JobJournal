@@ -1,6 +1,16 @@
 ﻿@inject HttpClient Http
 @inject NavigationManager NavigationManager
 
+<ModalDialog @ref="DeleteModal" ModalTitle="Delete Company" OnDialogClosed="DeleteModalClosed">
+    <ModalContent>
+        <p>Are you sure you want to delete <strong>@Company.CompanyName</strong>?</p>
+    </ModalContent>
+    <ModalFooter>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @onclick="DeleteModal.Hide">Cancel</button>
+    </ModalFooter>
+</ModalDialog>
+
 <tr>
     <th scope="row">@Company.CompanyName</th>
     <td>@Company.City</td>
@@ -15,16 +25,6 @@
 {
     <CompanyDetailsRow Company="Company" OnHideDetails="ToggleDetails" />
 }
-
-<ModalDialog @ref="DeleteModal" ModalTitle="Delete Company" OnDialogClosed="DeleteModalClosed">
-    <ModalContent>
-        <p>Are you sure you want to delete <strong>@Company.CompanyName</strong>?</p>
-    </ModalContent>
-    <ModalFooter>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @onclick="DeleteModal.Hide">Cancel</button>
-    </ModalFooter>
-</ModalDialog>
 
 @code {
     [Parameter]

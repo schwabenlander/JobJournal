@@ -2,7 +2,15 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject ICompanyDataService CompanyDataService
 
+<AddCompanyDialog @ref="AddCompanyModal"></AddCompanyDialog>
+
 <h1>Companies</h1>
+
+<div style="padding-bottom: 10px;">
+    <button type="button" class="btn btn-primary" @onclick="ShowAddCompanyModal">
+        <i class="fas fa-plus-square"></i> Add Company
+    </button>
+</div>
 
 <table class="table table-hover">
     <thead class="thead-dark">
@@ -27,8 +35,12 @@
     </tbody>
 </table>
 
+
+
 @code {
     List<CompanyDTO> companies;
+
+    AddCompanyDialog AddCompanyModal { get; set; }
 
     [CascadingParameter]
     public Guid UserId { get; set; }
@@ -43,5 +55,18 @@
         {
             exception.Redirect();
         }
+    }
+
+    protected void AddModalClosed(bool isClosed)
+    {
+        if (isClosed)
+        {
+            Console.WriteLine("Delete company dialog was closed.");
+        }
+    }
+
+    protected void ShowAddCompanyModal()
+    {
+        AddCompanyModal.Show();
     }
 }

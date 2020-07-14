@@ -1,0 +1,60 @@
+﻿<EditForm Model="Company" OnValidSubmit="HandleValidSubmit">
+    <ModalDialog @ref="Modal" ModalTitle="Add New Company" OnDialogClosed="AddModalClosed">
+        <ModalContent>
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="lastName">Company Name: </label>
+                <InputText id="companyName" class="form-control" @bind-Value="@Company.CompanyName" placeholder="Company Name"></InputText>
+                <ValidationMessage For="@(() => Company.CompanyName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Website: </label>
+                <InputText id="companyName" class="form-control" @bind-Value="@Company.WebsiteURI" type="url" placeholder="https://"></InputText>
+                <ValidationMessage For="@(() => Company.WebsiteURI)" />
+            </div>
+        </ModalContent>
+        <ModalFooter>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
+        </ModalFooter>
+    </ModalDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    public Guid UserId { get; set; }
+
+    public CompanyDTO Company { get; set; } = new CompanyDTO();
+
+    public ModalDialog Modal { get; set; }
+
+    public void ResetDialog()
+    {
+        Company = new CompanyDTO();
+    }
+
+    public void HandleValidSubmit()
+    {
+
+    }
+
+    public async Task Hide()
+    {
+        await Modal.Hide();
+    }
+
+    public void Show()
+    {
+        Modal.Show();
+    }
+
+    protected void AddModalClosed(bool isClosed)
+    {
+        if (isClosed)
+        {
+            Console.WriteLine("Delete company dialog was closed.");
+        }
+    }
+}
