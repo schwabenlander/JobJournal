@@ -126,6 +126,7 @@
         await Hide();
 
         await OnNewCompanySaved.InvokeAsync(Company);
+        Company = new CompanyDTO();
     }
 
     public async Task Hide()
