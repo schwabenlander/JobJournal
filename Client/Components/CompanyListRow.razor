@@ -1,15 +1,7 @@
 ﻿@inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-<ModalDialog @ref="DeleteModal" ModalTitle="Delete Company" OnDialogClosed="DeleteModalClosed">
-    <ModalContent>
-        <p>Are you sure you want to delete <strong>@Company.CompanyName</strong>?</p>
-    </ModalContent>
-    <ModalFooter>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @onclick="DeleteModal.Hide">Cancel</button>
-    </ModalFooter>
-</ModalDialog>
+<DeleteCompanyDialog Company="Company" OnCompanyDeleted="CompanyDeleted"></DeleteCompanyDialog>
 
 <tr>
     <th scope="row">@Company.CompanyName</th>
@@ -63,11 +55,10 @@
         DeleteModal.Show();
     }
 
-    protected void DeleteModalClosed(bool isClosed)
+    public async Task CompanyDeleted(CompanyDTO company)
     {
-        if (isClosed)
-        {
-            Console.WriteLine("Delete company dialog was closed.");
-        }
+        //Company = null;
+        Console.WriteLine($"{company.CompanyName} was removed from the database");
+        await InvokeAsync(StateHasChanged);
     }
 }

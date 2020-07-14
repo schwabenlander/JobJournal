@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject ICompanyDataService CompanyDataService
 
-<AddCompanyDialog @ref="AddCompanyModal"></AddCompanyDialog>
+<AddCompanyDialog @ref="AddCompanyModal" OnNewCompanySaved="NewCompanyAdded"></AddCompanyDialog>
 
 <h1>Companies</h1>
 
@@ -35,8 +35,6 @@
     </tbody>
 </table>
 
-
-
 @code {
     List<CompanyDTO> companies;
 
@@ -45,7 +43,7 @@
     [CascadingParameter]
     public Guid UserId { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected async Task GetFoldersAsync()
     {
         try
         {
@@ -57,12 +55,16 @@
         }
     }
 
-    protected void AddModalClosed(bool isClosed)
+    protected override async Task OnInitializedAsync()
     {
-        if (isClosed)
-        {
-            Console.WriteLine("Delete company dialog was closed.");
-        }
+        await GetFoldersAsync();
+    }
+
+    protected async Task NewCompanyAdded(CompanyDTO company)
+    {
+        Console.WriteLine($"New company ({company.CompanyName}) was added to the database");
+        await GetFoldersAsync();
+        await InvokeAsync(StateHasChanged);
     }
 
     protected void ShowAddCompanyModal()

@@ -12,19 +12,19 @@ namespace JobJournal.Shared.DTOs
         [Required]
         public Guid UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Company Name is required")]
         [Display(Name = "Company Name")]
         [StringLength(50)]
         public string CompanyName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Website is required")]
         [Display(Name = "Website Address")]
         [DataType(DataType.Url)]
         [StringLength(128)]
         public string WebsiteURI { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
         [StringLength(15)]
         public string PhoneNumber { get; set; }
 
@@ -33,9 +33,11 @@ namespace JobJournal.Shared.DTOs
         [StringLength(128)]
         public string EmailAddress { get; set; }
 
+        [Required(ErrorMessage = "City is required")]
         [StringLength(50)]
         public string City { get; set; }
 
+        [Required(ErrorMessage = "State is required")]
         [StringLength(2)]
         [Display(Name = "State")]
         public string State { get; set; }
