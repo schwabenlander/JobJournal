@@ -29,7 +29,7 @@
                 </tr>
             </EmptyTemplate>
             <ElementTemplate Context="company">
-                <CompanyListRow Company="company" />
+                <CompanyListRow Company="company" OnRowChanged="GetCompaniesAsync" />
             </ElementTemplate>
         </GenericList>
     </tbody>
@@ -43,7 +43,7 @@
     [CascadingParameter]
     public Guid UserId { get; set; }
 
-    protected async Task GetFoldersAsync()
+    protected async Task GetCompaniesAsync()
     {
         try
         {
@@ -57,13 +57,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await GetFoldersAsync();
+        await GetCompaniesAsync();
     }
 
     protected async Task NewCompanyAdded(CompanyDTO company)
     {
         Console.WriteLine($"New company ({company.CompanyName}) was added to the database");
-        await GetFoldersAsync();
+        await GetCompaniesAsync();
         await InvokeAsync(StateHasChanged);
     }
 

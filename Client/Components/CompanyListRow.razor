@@ -1,7 +1,7 @@
 ﻿@inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-<DeleteCompanyDialog Company="Company" OnCompanyDeleted="CompanyDeleted"></DeleteCompanyDialog>
+<DeleteCompanyDialog @ref="DeleteModal" Company="Company" OnCompanyDeleted="CompanyDeleted"></DeleteCompanyDialog>
 
 <tr>
     <th scope="row">@Company.CompanyName</th>
@@ -22,7 +22,10 @@
     [Parameter]
     public CompanyDTO Company { get; set; }
 
-    ModalDialog DeleteModal { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnRowChanged { get; set; }
+
+    DeleteCompanyDialog DeleteModal { get; set; }
 
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
@@ -57,8 +60,7 @@
 
     public async Task CompanyDeleted(CompanyDTO company)
     {
-        //Company = null;
         Console.WriteLine($"{company.CompanyName} was removed from the database");
-        await InvokeAsync(StateHasChanged);
+        await OnRowChanged.InvokeAsync(true);
     }
 }
