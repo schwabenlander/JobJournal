@@ -41,7 +41,7 @@ namespace JobJournal.Client.Services
 
         public async Task<IEnumerable<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId)
         {
-            return await _httpClient.GetFromJsonAsync<List<CompanyContactDTO>>($"company/{companyId}/contacts");
+            return await _httpClient.GetFromJsonAsync<List<CompanyContactDTO>>($"api/company/{companyId}/contacts");
         }
 
         public async Task UpdateCompanyContactAsync(CompanyContactDTO companyContact)

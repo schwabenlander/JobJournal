@@ -24,11 +24,11 @@
         <GenericList Items="companies">
             <EmptyTemplate>
                 <tr>
-                    <td colspan="3" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> There are no companies in your profile.</td>
+                    <td colspan="3" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no companies in your profile.</td>
                 </tr>
             </EmptyTemplate>
             <ElementTemplate Context="company">
-                <CompanyListRow Company="company" OnRowChanged="GetCompaniesAsync" />
+                <CompanyListRow Company="company" @key="company" OnRowChanged="GetCompaniesAsync" />
             </ElementTemplate>
         </GenericList>
     </tbody>

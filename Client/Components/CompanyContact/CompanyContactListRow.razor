@@ -1,0 +1,50 @@
+﻿@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+    <tr>
+        <th scope="row">@Contact.FullName</th>
+        <td>@Contact.PhoneNumber</td>
+        <td>@Contact.EmailAddress</td>
+        <td>
+            <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+            <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
+            <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+        </td>
+    </tr>
+@if (showDetails)
+{
+    
+}
+
+@code {
+    [Parameter]
+    public CompanyContactDTO Contact { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnRowChanged { get; set; }
+
+    private bool showDetails { get; set; } = false;
+    private string detailsIcon { get; set; } = "oi oi-caret-bottom";
+
+    protected void ToggleDetails()
+    {
+        showDetails = !showDetails;
+
+        if (showDetails)
+            detailsIcon = "oi oi-caret-top";
+        else
+            detailsIcon = "oi oi-caret-bottom";
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected void Update()
+    {
+        Console.WriteLine($"Updating contact: {Contact.FullName}");
+    }
+
+    protected void Delete()
+    {
+        Console.WriteLine($"Deleting contact: {Contact.FullName}");
+    }
+}

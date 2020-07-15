@@ -5,7 +5,7 @@
 <EditCompanyDialog @ref="EditModal" Company="Company" OnEditCompanySaved="CompanyUpdated"></EditCompanyDialog>
 
 <tr>
-    <th scope="row">@Company.CompanyName</th>
+    <th scope="row"><button class="btn btn-link" @onclick="NavigateToContacts">@Company.CompanyName</button></th>
     <td>@Company.City, @Company.State</td>
     <td>
         <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
@@ -32,9 +32,9 @@
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
 
-    protected void Details()
+    protected void NavigateToContacts()
     {
-        NavigationManager.NavigateTo($"company/{Company.Id}");
+        NavigationManager.NavigateTo($"company/{Company.Id}/contacts");
     }
 
     protected void ToggleDetails()

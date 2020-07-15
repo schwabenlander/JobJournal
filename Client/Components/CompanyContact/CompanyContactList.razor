@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject ICompanyDataService CompanyDataService
+@inject ICompanyContactDataService CompanyContactDataService
+
+@if (Company != null && contacts != null)
+{
+    <h1>@Company.CompanyName Contacts</h1>
+    
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <GenericList Items="contacts">
+                <EmptyTemplate>
+                    <tr>
+                        <td colspan="4" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no contacts for this company.</td>
+                    </tr>
+                </EmptyTemplate>
+                <ElementTemplate Context="contact">
+                    <CompanyContactListRow Contact="contact" @key="contact" OnRowChanged="GetCompanyContactsAsync" />
+                </ElementTemplate>
+            </GenericList>
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    public Guid UserId { get; set; }
+
+    [Parameter]
+    public Guid CompanyId { get; set; }
+
+    CompanyDTO Company { get; set; }
+
+    List<CompanyContactDTO> contacts { get; set; }
+
+    protected async Task GetCompanyAsync()
+    {
+        try
+        {
+            Company = await CompanyDataService.GetCompanyAsync(CompanyId);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    protected async Task GetCompanyContactsAsync()
+    {
+        try
+        {
+            contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderByDescending(cc => cc.FirstContactDate).ToList();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await GetCompanyAsync();
+        await GetCompanyContactsAsync();
+    }
+}
