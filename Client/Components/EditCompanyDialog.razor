@@ -1,6 +1,6 @@
-﻿<EditForm Model="Company" OnValidSubmit="HandleValidSubmit">
-    <ModalDialog @ref="Modal" ModalTitle="Add New Company">
-        <ModalContent>
+﻿<ModalDialog @ref="Modal" ModalTitle="Edit Company">
+    <ModalContent>
+        <EditForm Model="Company" OnValidSubmit="HandleValidSubmit">
             <DataAnnotationsValidator />
 
             <div class="form-group">
@@ -91,42 +91,38 @@
                 <InputText id="emailAddress" class="form-control" @bind-Value="@Company.EmailAddress" type="email" placeholder="hr@company.com"></InputText>
                 <ValidationMessage For="@(() => Company.EmailAddress)" />
             </div>
-        </ModalContent>
-        <ModalFooter>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
-        </ModalFooter>
-    </ModalDialog>
-</EditForm>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
+            </div>
+        </EditForm>
+    </ModalContent>
+</ModalDialog>
 
 @code {
     [CascadingParameter]
     public Guid UserId { get; set; }
 
     [Parameter]
-    public EventCallback<CompanyDTO> OnNewCompanySaved { get; set; }
+    public CompanyDTO Company { get; set; }
+
+    [Parameter]
+    public EventCallback<CompanyDTO> OnEditCompanySaved { get; set; }
 
     [Inject]
     public ICompanyDataService CompanyDataService { get; set; }
 
-    public CompanyDTO Company { get; set; } = new CompanyDTO();
-
-    public ModalDialog Modal { get; set; }
-
-    public void ResetDialog()
-    {
-        Company = new CompanyDTO();
-    }
+    ModalDialog Modal { get; set; }
 
     public async Task HandleValidSubmit()
     {
         Company.UserId = UserId;
 
-        await CompanyDataService.AddCompanyAsync(Company);
+        await CompanyDataService.UpdateCompanyAsync(Company);
         await Hide();
 
-        await OnNewCompanySaved.InvokeAsync(Company);
-        ResetDialog();
+        await OnEditCompanySaved.InvokeAsync(Company);
     }
 
     public async Task Hide()

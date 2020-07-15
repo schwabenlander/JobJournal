@@ -2,15 +2,15 @@
 @inject NavigationManager NavigationManager
 
 <DeleteCompanyDialog @ref="DeleteModal" Company="Company" OnCompanyDeleted="CompanyDeleted"></DeleteCompanyDialog>
+<EditCompanyDialog @ref="EditModal" Company="Company" OnEditCompanySaved="CompanyUpdated"></EditCompanyDialog>
 
 <tr>
     <th scope="row">@Company.CompanyName</th>
-    <td>@Company.City</td>
-    <td>@Company.State</td>
+    <td>@Company.City, @Company.State</td>
     <td>
-        <button type="button" class="btn btn-outline-primary" @onclick="ToggleDetails">Details <i class="@detailsIcon"></i></button>
-        <button type="button" class="btn btn-outline-secondary" @onclick="Edit">Edit</button>
-        <button type="button" class="btn btn-outline-danger" @onclick="Delete">Delete</button>
+        <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+        <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
+        <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
     </td>
 </tr>
 @if (showDetails)
@@ -26,6 +26,8 @@
     public EventCallback<bool> OnRowChanged { get; set; }
 
     DeleteCompanyDialog DeleteModal { get; set; }
+
+    EditCompanyDialog EditModal { get; set; }
 
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
@@ -47,9 +49,10 @@
         InvokeAsync(StateHasChanged);
     }
 
-    protected void Edit()
+    protected void Update()
     {
-        Console.WriteLine($"Editing company: {Company.CompanyName}");
+        Console.WriteLine($"Updating company: {Company.CompanyName}");
+        EditModal.Show();
     }
 
     protected void Delete()
@@ -61,6 +64,12 @@
     public async Task CompanyDeleted(CompanyDTO company)
     {
         Console.WriteLine($"{company.CompanyName} was removed from the database");
+        await OnRowChanged.InvokeAsync(true);
+    }
+
+    public async Task CompanyUpdated(CompanyDTO company)
+    {
+        Console.WriteLine($"{company.CompanyName} was updated in the database");
         await OnRowChanged.InvokeAsync(true);
     }
 }
