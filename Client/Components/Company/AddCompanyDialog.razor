@@ -1,6 +1,7 @@
-﻿<EditForm Model="Company" OnValidSubmit="HandleValidSubmit">
-    <ModalDialog @ref="Modal" ModalTitle="Add New Company">
-        <ModalContent>
+﻿<ModalDialog @ref="Modal" ModalTitle="Add New Company">
+    <ModalContent>
+        <EditForm Model="Company" OnValidSubmit="HandleValidSubmit">
+
             <DataAnnotationsValidator />
 
             <div class="form-group">
@@ -91,13 +92,15 @@
                 <InputText id="emailAddress" class="form-control" @bind-Value="@Company.EmailAddress" type="email" placeholder="hr@company.com"></InputText>
                 <ValidationMessage For="@(() => Company.EmailAddress)" />
             </div>
-        </ModalContent>
-        <ModalFooter>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
-        </ModalFooter>
-    </ModalDialog>
-</EditForm>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
+            </div>
+        </EditForm>
+    </ModalContent>
+</ModalDialog>
+
 
 @code {
     [CascadingParameter]
