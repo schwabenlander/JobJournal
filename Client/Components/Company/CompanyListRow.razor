@@ -5,10 +5,11 @@
 <EditCompanyDialog @ref="EditModal" Company="Company" OnEditCompanySaved="CompanyUpdated"></EditCompanyDialog>
 
 <tr>
-    <th scope="row"><button class="btn btn-link" @onclick="NavigateToContacts">@Company.CompanyName</button></th>
+    <th scope="row">@Company.CompanyName</th>
     <td>@Company.City, @Company.State</td>
     <td>
         <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+        <button type="button" class="btn btn-success" @onclick="NavigateToContacts"><i class="fas fa-user-friends"></i> Contacts</button>
         <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
         <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
     </td>
