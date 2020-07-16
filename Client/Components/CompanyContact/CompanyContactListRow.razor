@@ -1,16 +1,18 @@
 ﻿@inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-    <tr>
-        <th scope="row">@Contact.FullName</th>
-        <td>@Contact.PhoneNumber</td>
-        <td>@Contact.EmailAddress</td>
-        <td>
-            <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
-            <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
-            <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
-        </td>
-    </tr>
+<EditContactDialog @ref="EditModal" Contact="Contact" OnEditContactSaved="ContactUpdated" />
+
+<tr>
+    <th scope="row">@Contact.FullName</th>
+    <td>@Contact.PhoneNumber</td>
+    <td>@Contact.EmailAddress</td>
+    <td>
+        <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+        <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
+        <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+    </td>
+</tr>
 @if (showDetails)
 {
     
@@ -22,6 +24,8 @@
 
     [Parameter]
     public EventCallback<bool> OnRowChanged { get; set; }
+
+    EditContactDialog EditModal { get; set; }
 
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
@@ -41,10 +45,17 @@
     protected void Update()
     {
         Console.WriteLine($"Updating contact: {Contact.FullName}");
+        EditModal.Show();
     }
 
     protected void Delete()
     {
         Console.WriteLine($"Deleting contact: {Contact.FullName}");
+    }
+
+    public async Task ContactUpdated(CompanyContactDTO contact)
+    {
+        Console.WriteLine($"{contact.FullName} was updated in the database");
+        await OnRowChanged.InvokeAsync(true);
     }
 }

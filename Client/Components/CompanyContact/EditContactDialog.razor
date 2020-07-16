@@ -1,4 +1,4 @@
-﻿<ModalDialog @ref="Modal" ModalTitle="Add New Contact">
+﻿<ModalDialog @ref="Modal" ModalTitle="Edit Contact">
     <ModalContent>
         <EditForm Model="Contact" OnValidSubmit="HandleValidSubmit">
 
@@ -47,33 +47,24 @@
     public Guid UserId { get; set; }
 
     [Parameter]
-    public Guid CompanyId { get; set; }
-
-    [Parameter]
-    public EventCallback<CompanyContactDTO> OnNewContactSaved { get; set; }
+    public EventCallback<CompanyContactDTO> OnEditContactSaved { get; set; }
 
     [Inject]
     public ICompanyContactDataService ContactDataService { get; set; }
 
-    public CompanyContactDTO Contact { get; set; } = new CompanyContactDTO();
+    [Parameter]
+    public CompanyContactDTO Contact { get; set; }
 
     public ModalDialog Modal { get; set; }
-
-    public void ResetDialog()
-    {
-        Contact = new CompanyContactDTO();
-    }
 
     public async Task HandleValidSubmit()
     {
         Contact.UserId = UserId;
-        Contact.CompanyId = CompanyId;
 
-        await ContactDataService.AddCompanyContactAsync(Contact);
+        await ContactDataService.UpdateCompanyContactAsync(Contact);
         await Hide();
 
-        await OnNewContactSaved.InvokeAsync(Contact);
-        ResetDialog();
+        await OnEditContactSaved.InvokeAsync(Contact);
     }
 
     public async Task Hide()
