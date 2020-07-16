@@ -1,13 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject ICompanyDataService CompanyDataService
+@inject NavigationManager NavigationManager
 
 <AddCompanyDialog @ref="AddCompanyModal" OnNewCompanySaved="NewCompanyAdded"></AddCompanyDialog>
 
 <h1>Companies</h1>
 
 <div style="padding-bottom: 10px;">
-    <button type="button" class="btn btn-outline-primary" @onclick="ShowAddCompanyModal">
+    <button type="button" class="btn btn-primary" @onclick="ShowAddCompanyModal">
         <i class="fas fa-plus-square"></i> Add Company
     </button>
 </div>
