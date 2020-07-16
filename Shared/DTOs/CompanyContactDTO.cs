@@ -15,7 +15,7 @@ namespace JobJournal.Shared.DTOs
         [Required]
         public Guid CompanyId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Full Name is required")]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
@@ -24,6 +24,7 @@ namespace JobJournal.Shared.DTOs
         [StringLength(15)]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Email Address is required")]
         [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
         [StringLength(128)]

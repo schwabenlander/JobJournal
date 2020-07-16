@@ -3,10 +3,18 @@
 @inject ICompanyDataService CompanyDataService
 @inject ICompanyContactDataService CompanyContactDataService
 
+<AddContactDialog @ref="AddContactModal" CompanyId="CompanyId" OnNewContactSaved="GetCompanyContactsAsync" />
+
 @if (Company != null && contacts != null)
 {
     <h1>@Company.CompanyName Contacts</h1>
-    
+
+    <div style="padding-bottom: 10px;">
+        <button type="button" class="btn btn-outline-primary" @onclick="ShowContactDialog">
+            <i class="fas fa-plus-square"></i> Add Contact
+        </button>
+    </div>
+
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -46,6 +54,8 @@ else
 
     CompanyDTO Company { get; set; }
 
+    AddContactDialog AddContactModal { get; set; }
+
     List<CompanyContactDTO> contacts { get; set; }
 
     protected async Task GetCompanyAsync()
@@ -76,5 +86,10 @@ else
     {
         await GetCompanyAsync();
         await GetCompanyContactsAsync();
+    }
+
+    protected void ShowContactDialog()
+    {
+        AddContactModal.Show();
     }
 }
