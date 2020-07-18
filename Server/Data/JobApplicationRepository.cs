@@ -43,6 +43,11 @@ namespace JobJournal.Server.Data
             return _db.JobApplications.Where(j => j.UserId == userId);
         }
 
+        public IQueryable<JobApplication> GetJobApplicationsForCompany(Guid companyId)
+        {
+            return _db.JobApplications.Where(j => j.CompanyId == companyId);
+        }
+
         public async Task<JobApplication> UpdateJobApplication(JobApplication application)
         {
             if (application == null) return null;

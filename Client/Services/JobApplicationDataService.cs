@@ -39,9 +39,15 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<JobApplicationDTO>($"api/jobapplication/{id}");
         }
 
+
         public async Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId)
         {
             return await _httpClient.GetFromJsonAsync<List<JobApplicationDTO>>($"api/jobapplication/user/{userId}");
+        }
+
+        public async Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId)
+        {
+            return await _httpClient.GetFromJsonAsync<List<JobApplicationDTO>>($"api/jobapplication/company/{companyId}");
         }
 
         public async Task UpdateJobApplicationAsync(JobApplicationDTO jobApplication)

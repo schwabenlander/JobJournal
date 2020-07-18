@@ -10,6 +10,8 @@ namespace JobJournal.Client.Services
     {
         Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId);
 
+        Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId);
+
         Task<JobApplicationDTO> GetJobApplicationAsync(Guid id);
 
         Task<JobApplicationDTO> AddJobApplicationAsync(JobApplicationDTO jobApplication);

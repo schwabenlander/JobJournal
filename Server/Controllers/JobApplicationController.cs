@@ -41,6 +41,21 @@ namespace JobJournal.Server.Controllers
             }
         }
 
+        // GET: api/jobapplication/company/ad94a572-5104-4303-82f7-fac0a7d06897
+        [HttpGet("company/{companyId:Guid}")]
+        public async Task<ActionResult<IEnumerable<JobApplicationDTO>>> GetJobApplicationsForCompany(Guid companyId)
+        {
+            try
+            {
+                return Ok(await _mapper.ProjectTo<JobApplicationDTO>(_repository.GetJobApplicationsForCompany(companyId)).ToListAsync());
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
+        }
+
         // GET api/jobapplication/58E55E99-CBAD-4C93-B804-FE8C265F9835
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<JobApplicationDTO>> GetJobApplication(Guid id)
