@@ -1,0 +1,71 @@
+﻿@inject ICompanyDataService CompanyDataService
+
+<tr>
+    <th scope="row">@JobApplication.JobTitle</th>
+    <td>@Company?.CompanyName</td>
+    <td>@JobApplication.ApplicationDate.ToShortDateString()</td>
+    <td>@JobApplication.ApplicationStatus</td>
+    <td>
+        <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+        <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-edit"></i> Edit</button>
+        <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+    </td>
+</tr>
+@if (showDetails)
+{
+    
+}
+
+@code {
+    [Parameter]
+    public JobApplicationDTO JobApplication { get; set; }
+
+    public CompanyDTO Company { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnRowChanged { get; set; }
+
+    private bool showDetails { get; set; } = false;
+    private string detailsIcon { get; set; } = "oi oi-caret-bottom";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Company = await CompanyDataService.GetCompanyAsync(JobApplication.CompanyId);
+    }
+
+    protected void ToggleDetails()
+    {
+        showDetails = !showDetails;
+
+        if (showDetails)
+            detailsIcon = "oi oi-caret-top";
+        else
+            detailsIcon = "oi oi-caret-bottom";
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected void Update()
+    {
+        Console.WriteLine($"Updating job application: {JobApplication.JobTitle}");
+        //EditModal.Show();
+    }
+
+    protected void Delete()
+    {
+        Console.WriteLine($"Deleting job application: {JobApplication.JobTitle}");
+        //DeleteModal.Show();
+    }
+
+    public async Task JobApplicationUpdated(JobApplicationDTO jobApplication)
+    {
+        Console.WriteLine($"{jobApplication.JobTitle} was updated in the database");
+        await OnRowChanged.InvokeAsync(true);
+    }
+
+    public async Task JobApplicationDeleted(JobApplicationDTO jobApplication)
+    {
+        Console.WriteLine($"{jobApplication.JobTitle} was removed from the database");
+        await OnRowChanged.InvokeAsync(true);
+    }
+}

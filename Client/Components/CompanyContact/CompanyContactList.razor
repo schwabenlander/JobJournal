@@ -6,7 +6,7 @@
 
 <AddContactDialog @ref="AddContactModal" CompanyId="CompanyId" OnNewContactSaved="GetCompanyContactsAsync" />
 
-@if (Company != null && contacts != null)
+@if (Company != null && Contacts != null)
 {
     <h1>@Company.CompanyName Contacts</h1>
 
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <GenericList Items="contacts">
+            <GenericList Items="Contacts">
                 <EmptyTemplate>
                     <tr>
                         <td colspan="4" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no contacts for this company.</td>
@@ -61,7 +61,7 @@ else
 
     AddContactDialog AddContactModal { get; set; }
 
-    List<CompanyContactDTO> contacts { get; set; }
+    List<CompanyContactDTO> Contacts { get; set; }
 
     protected void NavigateToCompanies()
     {
@@ -84,7 +84,7 @@ else
     {
         try
         {
-            contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderByDescending(cc => cc.FirstContactDate).ToList();
+            Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderBy(cc => cc.FullName).ToList();
         }
         catch (AccessTokenNotAvailableException exception)
         {
