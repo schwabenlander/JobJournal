@@ -26,28 +26,34 @@ namespace JobJournal.Shared
 
         public ApplicationStatus ApplicationStatus { get; set; }
 
+        [Required]
+        public int ApplicationStatusId { get; set; }
+
         public ApplicationMethod ApplicationMethod { get; set; }
+
+        [Required]
+        public int ApplicationMethodId { get; set; }
     }
 
-    public enum ApplicationStatus
-    {
-        Applied = 1,
-        Interviewing = 2,
-        Rejected = 3,
-        Declined = 4,
-        Hired = 5
-    }
+    //public enum ApplicationStatus
+    //{
+    //    Applied = 1,
+    //    Interviewing = 2,
+    //    Rejected = 3,
+    //    Declined = 4,
+    //    Hired = 5
+    //}
 
-    public enum ApplicationMethod
-    {
-        DirectOnline = 1,
-        DirectEmail = 2,
-        DirectInPerson = 3,
-        Recruiter = 4,
-        Friend = 5,
-        Indeed = 6,
-        LinkedIn = 7,
-        StackOverflow = 8,
-        Other = 9
-    }
+    //public enum ApplicationMethod
+    //{
+    //    DirectOnline = 1,
+    //    DirectEmail = 2,
+    //    DirectInPerson = 3,
+    //    Recruiter = 4,
+    //    Friend = 5,
+    //    Indeed = 6,
+    //    LinkedIn = 7,
+    //    StackOverflow = 8,
+    //    Other = 9
+    //}
 }

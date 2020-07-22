@@ -4,14 +4,16 @@ using JobJournal.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobJournal.Server.Migrations
 {
     [DbContext(typeof(JobJournalContext))]
-    partial class JobJournalContextModelSnapshot : ModelSnapshot
+    [Migration("20200722235238_Added_Tables_for_ApplicationStatus_and_ApplicationMethod")]
+    partial class Added_Tables_for_ApplicationStatus_and_ApplicationMethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
