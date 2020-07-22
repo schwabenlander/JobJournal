@@ -2,7 +2,7 @@
 
 <tr>
     <th scope="row">@JobApplication.JobTitle</th>
-    <td>@Company?.CompanyName</td>
+    <td>@JobApplication.CompanyName</td>
     <td>@JobApplication.ApplicationDate.ToShortDateString()</td>
     <td>@JobApplication.ApplicationStatus</td>
     <td>
@@ -20,18 +20,11 @@
     [Parameter]
     public JobApplicationDTO JobApplication { get; set; }
 
-    public CompanyDTO Company { get; set; }
-
     [Parameter]
     public EventCallback<bool> OnRowChanged { get; set; }
 
     private bool showDetails { get; set; } = false;
     private string detailsIcon { get; set; } = "oi oi-caret-bottom";
-
-    protected override async Task OnParametersSetAsync()
-    {
-        Company = await CompanyDataService.GetCompanyAsync(JobApplication.CompanyId);
-    }
 
     protected void ToggleDetails()
     {

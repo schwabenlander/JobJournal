@@ -15,6 +15,9 @@ namespace JobJournal.Shared.DTOs
         [Required]
         public Guid CompanyId { get; set; }
 
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; }
+
         [Required]
         [Display(Name = "Job Title")]
         public string JobTitle { get; set; }

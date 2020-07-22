@@ -32,6 +32,7 @@ namespace JobJournal.Server.Controllers
         {
             try
             {
+                var applications = _repository.GetJobApplicationsForUser(userId);
                 return Ok(await _mapper.ProjectTo<JobApplicationDTO>(_repository.GetJobApplicationsForUser(userId)).ToListAsync());
             }
             catch
