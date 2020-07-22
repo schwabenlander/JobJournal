@@ -1,0 +1,32 @@
+﻿<tr>
+    <td colspan="3">
+        <div class="card">
+            <h3 class="card-header">@JobApplication.JobTitle</h3>
+            <div class="card-body">
+                <h5 class="card-title">@JobApplication.CompanyName</h5>
+                <p class="card-text">
+                    <ul>
+                        <li>
+                            Application Date: @JobApplication.ApplicationDate.ToShortDateString()
+                        </li>
+                        <li>
+                            Application Method: @Enum.GetName(typeof(ApplicationMethod), JobApplication.ApplicationMethod)
+                        </li>
+                        <li>
+                            Current Status: @Enum.GetName(typeof(ApplicationStatus), JobApplication.ApplicationStatus)
+                        </li>
+                    </ul>
+                </p>
+                <button type="button" class="btn btn-primary" @onclick="OnHideDetails">Hide Details</button>
+            </div>
+        </div>
+    </td>
+</tr>
+
+@code {
+    [Parameter]
+    public JobApplicationDTO JobApplication { get; set; }
+
+    [Parameter]
+    public EventCallback OnHideDetails { get; set; }
+}
