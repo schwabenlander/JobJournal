@@ -24,13 +24,13 @@
 
             <div class="form-group">
                 <label for="firstContactDate">First Contact Date: </label>
-                <InputDate id="firstContactDate" class="form-control" @bind-Value="@Contact.FirstContactDate" type="date"></InputDate>
+                <InputDate id="firstContactDate" class="form-control" @bind-Value="@Contact.FirstContactDate"></InputDate>
                 <ValidationMessage For="@(() => Contact.FirstContactDate)" />
             </div>
 
             <div class="form-group">
                 <label for="mostRecentContactDate">Most Recent Contact Date: </label>
-                <InputDate id="mostRecentContactDate" class="form-control" @bind-Value="@Contact.MostRecentContactDate" type="date"></InputDate>
+                <InputDate id="mostRecentContactDate" class="form-control" @bind-Value="@Contact.MostRecentContactDate"></InputDate>
                 <ValidationMessage For="@(() => Contact.MostRecentContactDate)" />
             </div>
 

@@ -1,6 +1,7 @@
 ﻿@inject ICompanyDataService CompanyDataService
 
 <DeleteJobApplicationDialog @ref="DeleteModal" JobApplication="JobApplication" OnJobApplicationDeleted="JobApplicationDeleted" />
+<EditJobApplicationDialog @ref="EditModal" JobApplication="JobApplication" OnEditJobApplicationSaved="JobApplicationUpdated" />
 
 <tr>
     <th scope="row">@JobApplication.JobTitle</th>
@@ -20,6 +21,7 @@
 
 @code {
     DeleteJobApplicationDialog DeleteModal { get; set; }
+    EditJobApplicationDialog EditModal { get; set; }
 
     [Parameter]
     public JobApplicationDTO JobApplication { get; set; }
@@ -45,7 +47,7 @@
     protected void Update()
     {
         Console.WriteLine($"Updating job application: {JobApplication.JobTitle}");
-        //EditModal.Show();
+        EditModal.Show();
     }
 
     protected void Delete()

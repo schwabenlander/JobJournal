@@ -60,8 +60,8 @@ namespace JobJournal.Server.Data
             applicationToUpdate.CompanyId = application.CompanyId;
             applicationToUpdate.JobTitle = application.JobTitle;
             applicationToUpdate.ApplicationDate = application.ApplicationDate;
-            applicationToUpdate.ApplicationMethod = application.ApplicationMethod;
-            applicationToUpdate.ApplicationStatus = application.ApplicationStatus;
+            applicationToUpdate.ApplicationMethodId = application.ApplicationMethodId;
+            applicationToUpdate.ApplicationStatusId = application.ApplicationStatusId;
 
             var updatedApplication = _db.JobApplications.Update(applicationToUpdate);
             await _db.SaveChangesAsync();

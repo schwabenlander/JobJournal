@@ -107,8 +107,9 @@ namespace JobJournal.Server.Controllers
 
                 return NoContent();
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 // TODO: Log exception
                 return NotFound();
             }
