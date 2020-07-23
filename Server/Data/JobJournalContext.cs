@@ -9,6 +9,8 @@ namespace JobJournal.Server.Data
 {
     public class JobJournalContext : DbContext
     {
+        public DbSet<ApplicationStatus> ApplicationStatuses { get; set; }
+        public DbSet<ApplicationMethod> ApplicationMethods { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyContact> CompanyContacts { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }

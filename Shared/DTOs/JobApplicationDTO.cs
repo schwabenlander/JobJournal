@@ -27,12 +27,16 @@ namespace JobJournal.Shared.DTOs
         [DataType(DataType.Date)]
         public DateTime ApplicationDate { get; set; }
 
-        [Display(Name = "First Method")]
-        [Range(1, 9)]
-        public int ApplicationMethod { get; set; }
+        [Required]
+        public int ApplicationMethodId { get; set; }
+
+        [Display(Name = "Application Method")]
+        public string ApplicationMethod { get; set; }
+
+        [Required]
+        public int ApplicationStatusId { get; set; }
 
         [Display(Name = "Application Status")]
-        [Range(1, 5)]
-        public int ApplicationStatus { get; set; }
+        public string ApplicationStatus { get; set; }
     }
 }

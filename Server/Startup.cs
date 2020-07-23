@@ -34,6 +34,8 @@ namespace JobJournal.Server
             services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
 
+            services.AddScoped<IApplicationMethodRepository, ApplicationMethodRepository>();
+            services.AddScoped<IApplicationStatusRepository, ApplicationStatusRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyContactRepository, CompanyContactRepository>();
             services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
