@@ -18,6 +18,10 @@ namespace JobJournal.Server.Data
 
         public async Task<JobApplication> AddJobApplication(JobApplication application)
         {
+            application.ApplicationMethod = await _db.ApplicationMethods.FindAsync(application.ApplicationMethodId);
+            application.ApplicationStatus = await _db.ApplicationStatuses.FindAsync(application.ApplicationStatusId);
+            application.Company = await _db.Companies.FindAsync(application.CompanyId);
+
             var newApplication = _db.JobApplications.Add(application);
             await _db.SaveChangesAsync();
 
