@@ -34,6 +34,16 @@ namespace JobJournal.Client.Services
             await _httpClient.DeleteAsync($"api/jobapplication/{id}");
         }
 
+        public async Task<IEnumerable<ApplicationMethodDTO>> GetApplicationMethodsAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ApplicationMethodDTO>>($"api/applicationmethod/all");
+        }
+
+        public async Task<IEnumerable<ApplicationStatusDTO>> GetApplicationStatusesAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ApplicationStatusDTO>>($"api/applicationstatus/all");
+        }
+
         public async Task<JobApplicationDTO> GetJobApplicationAsync(Guid id)
         {
             return await _httpClient.GetFromJsonAsync<JobApplicationDTO>($"api/jobapplication/{id}");

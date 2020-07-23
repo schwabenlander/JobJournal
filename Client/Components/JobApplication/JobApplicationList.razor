@@ -2,7 +2,15 @@
 @inject IJobApplicationDataService JobApplicationDataService
 @inject NavigationManager NavigationManager
 
+<AddJobApplicationDialog @ref="AddJobApplicationModal" OnNewJobApplicationSaved="NewJobApplicationAdded" />
+
 <h1>Job Applications</h1>
+
+<div style="padding-bottom: 10px;">
+    <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
+        <i class="fas fa-plus-square"></i> Add Job Application
+    </button>
+</div>
 
 @if (JobApplications != null)
 {
@@ -43,6 +51,8 @@ else
 
     public List<JobApplicationDTO> JobApplications { get; set; }
 
+    AddJobApplicationDialog AddJobApplicationModal { get; set; }
+
     public async Task GetJobApplicationsAsync()
     {
         try
@@ -58,5 +68,17 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetJobApplicationsAsync();
+    }
+
+    protected async Task NewJobApplicationAdded(JobApplicationDTO jobApplication)
+    {
+        Console.WriteLine($"New job application ({jobApplication.JobTitle}) was added to the database");
+        await GetJobApplicationsAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected void ShowAddJobApplicationModal()
+    {
+        AddJobApplicationModal.Show();
     }
 }

@@ -1,0 +1,91 @@
+﻿<ModalDialog @ref="Modal" ModalTitle="Add Job Application">
+    <ModalContent>
+        <EditForm Model="JobApplication" OnValidSubmit="HandleValidSubmit">
+
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="companyId">Company: </label>
+                <InputSelectGuid id="companyId" class="form-control" @bind-Value="JobApplication.CompanyId">
+                    <option>Select ...</option>
+                    @foreach (var company in Companies)
+                    {
+                        <option value="@company.Id">@company.CompanyName</option>
+                    }
+                </InputSelectGuid>
+                <ValidationMessage For="@(() => JobApplication.CompanyId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="jobTitle">Job Title: </label>
+                <InputText id="jobTitle" class="form-control" @bind-Value="@JobApplication.JobTitle" placeholder="Job Title"></InputText>
+                <ValidationMessage For="@(() => JobApplication.JobTitle)" />
+            </div>
+
+            
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>
+            </div>
+        </EditForm>
+    </ModalContent>
+</ModalDialog>
+
+
+@code {
+    [CascadingParameter]
+    public Guid UserId { get; set; }
+
+    [Parameter]
+    public EventCallback<JobApplicationDTO> OnNewJobApplicationSaved { get; set; }
+
+    [Inject]
+    public IJobApplicationDataService JobApplicationDataService { get; set; }
+
+    [Inject]
+    public ICompanyDataService CompanyDataService { get; set; }
+
+    List<CompanyDTO> Companies { get; set; } = new List<CompanyDTO>();
+
+    List<ApplicationStatusDTO> ApplicationStatuses { get; set; } = new List<ApplicationStatusDTO>();
+
+    List<ApplicationMethodDTO> ApplicationMethods { get; set; } = new List<ApplicationMethodDTO>();
+
+    public JobApplicationDTO JobApplication { get; set; } = new JobApplicationDTO();
+
+    public ModalDialog Modal { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Companies = (await CompanyDataService.GetCompaniesAsync(UserId)).ToList();
+        ApplicationMethods = (await JobApplicationDataService.GetApplicationMethodsAsync()).ToList();
+        ApplicationStatuses = (await JobApplicationDataService.GetApplicationStatusesAsync()).ToList();
+    }
+
+    public void ResetDialog()
+    {
+        JobApplication = new JobApplicationDTO();
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        JobApplication.UserId = UserId;
+
+        await JobApplicationDataService.AddJobApplicationAsync(JobApplication);
+        await Hide();
+
+        await OnNewJobApplicationSaved.InvokeAsync(JobApplication);
+        ResetDialog();
+    }
+
+    public async Task Hide()
+    {
+        await Modal.Hide();
+    }
+
+    public void Show()
+    {
+        Modal.Show();
+    }
+}
