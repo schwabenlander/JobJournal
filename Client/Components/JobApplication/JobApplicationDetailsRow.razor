@@ -10,10 +10,10 @@
                             Application Date: @JobApplication.ApplicationDate.ToShortDateString()
                         </li>
                         <li>
-                            Application Method: @Enum.GetName(typeof(ApplicationMethod), JobApplication.ApplicationMethod)
+                            Application Method: @JobApplication.ApplicationMethod
                         </li>
                         <li>
-                            Current Status: @Enum.GetName(typeof(ApplicationStatus), JobApplication.ApplicationStatus)
+                            Current Status: @JobApplication.ApplicationStatus
                         </li>
                     </ul>
                 </p>
