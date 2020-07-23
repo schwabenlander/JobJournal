@@ -12,7 +12,7 @@ namespace JobJournal.Shared.DTOs
         [Required]
         public Guid UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Company is required")]
         public Guid CompanyId { get; set; }
 
         [Display(Name = "Company Name")]
@@ -27,13 +27,13 @@ namespace JobJournal.Shared.DTOs
         [DataType(DataType.Date)]
         public DateTime ApplicationDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Application Method is required")]
         public int ApplicationMethodId { get; set; }
 
         [Display(Name = "Application Method")]
         public string ApplicationMethod { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Application Status is required")]
         public int ApplicationStatusId { get; set; }
 
         [Display(Name = "Application Status")]

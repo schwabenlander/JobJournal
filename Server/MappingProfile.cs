@@ -14,6 +14,8 @@ namespace JobJournal.Server
         {
             CreateMap<Company, CompanyDTO>().ReverseMap();
             CreateMap<CompanyContact, CompanyContactDTO>().ReverseMap();
+            CreateMap<ApplicationMethod, ApplicationMethodDTO>().ReverseMap();
+            CreateMap<ApplicationStatus, ApplicationStatusDTO>().ReverseMap();
             CreateMap<JobApplication, JobApplicationDTO>()
                 .ForMember(m => m.CompanyName, opt => opt.MapFrom(src => src.Company.CompanyName))
                 .ForMember(m => m.ApplicationStatus, opt => opt.MapFrom(src => src.ApplicationStatus.Status))

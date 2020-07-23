@@ -31,7 +31,8 @@ namespace JobJournal.Server.Controllers
         {
             try
             {
-                return Ok(await _mapper.ProjectTo<ApplicationMethodDTO>(_repository.GetApplicationMethods()).ToListAsync());
+                var applicationMethods = _repository.GetApplicationMethods();
+                return Ok(await _mapper.ProjectTo<ApplicationMethodDTO>(applicationMethods).ToListAsync());
             }
             catch
             {
