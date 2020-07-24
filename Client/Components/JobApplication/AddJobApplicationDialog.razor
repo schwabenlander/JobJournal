@@ -86,12 +86,21 @@
         Companies = (await CompanyDataService.GetCompaniesAsync(UserId)).ToList();
         ApplicationMethods = (await JobApplicationDataService.GetApplicationMethodsAsync()).ToList();
         ApplicationStatuses = (await JobApplicationDataService.GetApplicationStatusesAsync()).ToList();
+        SetDefaults();
+    }
+
+    private void SetDefaults()
+    {
         Application.ApplicationDate = DateTime.Now.Date;
+        Application.CompanyId = Companies.FirstOrDefault().Id;
+        Application.ApplicationMethodId = ApplicationMethods.FirstOrDefault().Id;
+        Application.ApplicationStatusId = ApplicationStatuses.FirstOrDefault().Id;
     }
 
     public void ResetDialog()
     {
         Application = new JobApplicationDTO();
+        SetDefaults();
     }
 
     public async Task HandleValidSubmit()
