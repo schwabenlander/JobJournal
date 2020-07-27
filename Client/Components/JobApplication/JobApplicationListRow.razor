@@ -22,7 +22,7 @@
 </tr>
 @if (showDetails)
 {
-    <JobApplicationDetailsRow JobApplication="JobApplication" OnHideDetails="ToggleDetails" />
+    <JobApplicationDetailsRow JobApplication="JobApplication" RowCssClass="rowCssClass" OnHideDetails="ToggleDetails" />
 }
 
 @code {
@@ -41,6 +41,9 @@
     {
         switch (JobApplication.ApplicationStatusId)
         {
+            case 1:
+                rowCssClass = "";
+                break;
             case 2:
                 rowCssClass = "table-primary";
                 break;

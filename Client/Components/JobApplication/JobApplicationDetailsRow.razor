@@ -1,4 +1,4 @@
-﻿<tr>
+﻿<tr class="@RowCssClass">
     <td colspan="5">
         <div class="card">
             <h3 class="card-header">@JobApplication.JobTitle</h3>
@@ -32,4 +32,7 @@
 
     [Parameter]
     public EventCallback OnHideDetails { get; set; }
+
+    [Parameter]
+    public string RowCssClass { get; set; }
 }
