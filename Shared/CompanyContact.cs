@@ -21,7 +21,11 @@ namespace JobJournal.Shared
         [Required]
         public string FullName { get; set; }
 
+        public string JobTitle { get; set; }
+
         public string PhoneNumber { get; set; }
+
+        public string Comments { get; set; }
 
         public string EmailAddress { get; set; }
 

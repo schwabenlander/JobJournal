@@ -121,6 +121,11 @@ namespace JobJournal.Server.Migrations
                         new
                         {
                             Id = 5,
+                            Status = "Ghosted"
+                        },
+                        new
+                        {
+                            Id = 6,
                             Status = "Hired"
                         });
                 });
@@ -132,6 +137,9 @@ namespace JobJournal.Server.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
@@ -163,6 +171,7 @@ namespace JobJournal.Server.Migrations
                         {
                             Id = new Guid("ad94a572-5104-4303-82f7-fac0a7d06897"),
                             City = "Muscatine",
+                            Comments = "Great company to work for.",
                             CompanyName = "Schwabenlander.com",
                             EmailAddress = "sean@schwabenlander.com",
                             PhoneNumber = "(202) 794-0474",
@@ -178,6 +187,9 @@ namespace JobJournal.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -189,6 +201,9 @@ namespace JobJournal.Server.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("MostRecentContactDate")
@@ -210,10 +225,12 @@ namespace JobJournal.Server.Migrations
                         new
                         {
                             Id = new Guid("1e98b65b-c56d-470d-b509-148ac693a013"),
+                            Comments = "Sean's a great guy and a handsome fellow.",
                             CompanyId = new Guid("ad94a572-5104-4303-82f7-fac0a7d06897"),
                             EmailAddress = "sean@schwabenlander.net",
                             FirstContactDate = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Sean Schwabenlander",
+                            JobTitle = "CEO",
                             PhoneNumber = "(612) 810-4212",
                             UserId = new Guid("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8")
                         });
@@ -233,6 +250,9 @@ namespace JobJournal.Server.Migrations
 
                     b.Property<int>("ApplicationStatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
@@ -261,8 +281,9 @@ namespace JobJournal.Server.Migrations
                             ApplicationDate = new DateTime(2020, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ApplicationMethodId = 3,
                             ApplicationStatusId = 1,
+                            Comments = "This is my dream job.",
                             CompanyId = new Guid("ad94a572-5104-4303-82f7-fac0a7d06897"),
-                            JobTitle = "CEO",
+                            JobTitle = "Engineer",
                             UserId = new Guid("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8")
                         });
                 });

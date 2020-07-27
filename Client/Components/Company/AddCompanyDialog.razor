@@ -93,6 +93,12 @@
                 <ValidationMessage For="@(() => Company.EmailAddress)" />
             </div>
 
+            <div class="form-group">
+                <label for="comments">Comments: </label>
+                <InputTextArea id="comments" class="form-control" @bind-Value="@Company.Comments" placeholder="Comments"></InputTextArea>
+                <ValidationMessage For="@(() => Company.Comments)" />
+            </div>
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="button" class="btn btn-outline-primary" @onclick="Hide">Cancel</button>

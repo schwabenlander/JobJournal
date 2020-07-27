@@ -70,26 +70,12 @@ else
 
     protected async Task GetCompanyAsync()
     {
-        try
-        {
-            Company = await CompanyDataService.GetCompanyAsync(CompanyId);
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        Company = await CompanyDataService.GetCompanyAsync(CompanyId);
     }
 
     protected async Task GetCompanyContactsAsync()
     {
-        try
-        {
-            Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderBy(cc => cc.FullName).ToList();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderBy(cc => cc.FullName).ToList();
     }
 
     protected override async Task OnParametersSetAsync()

@@ -11,6 +11,12 @@
             </div>
 
             <div class="form-group">
+                <label for="jobTitle">Title: </label>
+                <InputText id="jobTitle" class="form-control" @bind-Value="@Contact.JobTitle" placeholder="Title"></InputText>
+                <ValidationMessage For="@(() => Contact.JobTitle)" />
+            </div>
+
+            <div class="form-group">
                 <label for="phoneNumber">Phone Number: </label>
                 <InputText id="phoneNumber" class="form-control" @bind-Value="@Contact.PhoneNumber" type="tel" placeholder="(123) 456-7890"></InputText>
                 <ValidationMessage For="@(() => Contact.PhoneNumber)" />
@@ -32,6 +38,12 @@
                 <label for="mostRecentContactDate">Most Recent Contact Date: </label>
                 <InputDate id="mostRecentContactDate" class="form-control" @bind-Value="@Contact.MostRecentContactDate" type="date"></InputDate>
                 <ValidationMessage For="@(() => Contact.MostRecentContactDate)" />
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Comments: </label>
+                <InputTextArea id="comments" class="form-control" @bind-Value="@Contact.Comments" placeholder = "Comments"></InputTextArea>
+                <ValidationMessage For="@(() => Contact.Comments)" />
             </div>
 
             <div class="modal-footer">

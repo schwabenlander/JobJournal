@@ -41,5 +41,7 @@ namespace JobJournal.Shared.DTOs
         [StringLength(2)]
         [Display(Name = "State")]
         public string State { get; set; }
+
+        public string Comments { get; set; }
     }
 }

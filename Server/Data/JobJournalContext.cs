@@ -32,7 +32,8 @@ namespace JobJournal.Server.Data
                 new ApplicationStatus { Id = 2, Status = "Interviewing" },
                 new ApplicationStatus { Id = 3, Status = "Declined" },
                 new ApplicationStatus { Id = 4, Status = "Rejected" },
-                new ApplicationStatus { Id = 5, Status = "Hired" }
+                new ApplicationStatus { Id = 5, Status = "Ghosted" },
+                new ApplicationStatus { Id = 6, Status = "Hired" }
             );
 
             modelBuilder.Entity<ApplicationMethod>().HasData(
@@ -56,7 +57,8 @@ namespace JobJournal.Server.Data
                 EmailAddress = "sean@schwabenlander.com",
                 City = "Muscatine",
                 State = "IA",
-                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8")
+                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"), 
+                Comments = "Great company to work for."
             });
 
             modelBuilder.Entity<CompanyContact>().HasData(new CompanyContact
@@ -64,21 +66,24 @@ namespace JobJournal.Server.Data
                 Id = Guid.Parse("1e98b65b-c56d-470d-b509-148ac693a013"),
                 CompanyId = Guid.Parse("ad94a572-5104-4303-82f7-fac0a7d06897"),
                 FullName = "Sean Schwabenlander",
+                JobTitle = "CEO", 
                 EmailAddress = "sean@schwabenlander.net",
                 PhoneNumber = "(612) 810-4212",
                 FirstContactDate = new DateTime(2020, 06, 01),
-                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8")
+                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"),
+                Comments = "Sean's a great guy and a handsome fellow."
             });
 
             modelBuilder.Entity<JobApplication>().HasData(new JobApplication
             {
                 Id = Guid.Parse("58e55e99-cbad-4c93-b804-fe8c265f9835"),
                 CompanyId = Guid.Parse("ad94a572-5104-4303-82f7-fac0a7d06897"),
-                JobTitle = "CEO",
+                JobTitle = "Engineer",
                 ApplicationDate = new DateTime(2020, 06, 30),
                 ApplicationMethodId = 3,
                 ApplicationStatusId = 1,
-                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8")
+                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"),
+                Comments = "This is my dream job."
             });
 
         }

@@ -19,6 +19,10 @@ namespace JobJournal.Shared.DTOs
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
+        [Required(ErrorMessage = "Title is required")]
+        [Display(Name = "Title")]
+        public string JobTitle { get; set; }
+
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
         [StringLength(15)]
@@ -29,6 +33,8 @@ namespace JobJournal.Shared.DTOs
         [DataType(DataType.EmailAddress)]
         [StringLength(128)]
         public string EmailAddress { get; set; }
+
+        public string Comments { get; set; }
 
         [Display(Name = "First Contact")]
         [DataType(DataType.Date)]

@@ -45,14 +45,7 @@
 
     protected async Task GetCompaniesAsync()
     {
-        try
-        {
-            companies = (await CompanyDataService.GetCompaniesAsync(UserId)).OrderBy(c => c.CompanyName).ToList();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        companies = (await CompanyDataService.GetCompaniesAsync(UserId)).OrderBy(c => c.CompanyName).ToList();
     }
 
     protected override async Task OnInitializedAsync()

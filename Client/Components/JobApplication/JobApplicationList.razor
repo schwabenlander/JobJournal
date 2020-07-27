@@ -1,10 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IJobApplicationDataService JobApplicationDataService
+@inject ICompanyDataService CompanyDataService
 @inject NavigationManager NavigationManager
 
 <AddJobApplicationDialog @ref="AddJobApplicationDialog" OnNewJobApplicationSaved="NewJobApplicationAdded" />
 
 <h1>Job Applications</h1>
+
 
 <div style="padding-bottom: 10px;">
     <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
@@ -53,21 +55,17 @@ else
 
     AddJobApplicationDialog AddJobApplicationDialog { get; set; }
 
+    bool ShowAddJobButton { get; set; } = false;
+
     public async Task GetJobApplicationsAsync()
     {
-        try
-        {
-            JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).OrderByDescending(j => j.ApplicationDate).ToList();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).OrderByDescending(j => j.ApplicationDate).ToList();
     }
 
     protected override async Task OnInitializedAsync()
     {
         await GetJobApplicationsAsync();
+        var companies = await CompanyDataService.GetCompaniesAsync(UserId);
     }
 
     protected async Task NewJobApplicationAdded(JobApplicationDTO jobApplication)

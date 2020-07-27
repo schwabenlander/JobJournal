@@ -26,6 +26,12 @@ namespace JobJournal.Server.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("all/{userId:Guid}/count")]
+        public async Task<ActionResult<int>> GetCompanyCountForUser(Guid userId)
+        {
+            return Ok(await _repository.GetCompaniesForUser(userId).CountAsync());
+        }
+
         // GET: api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8
         [HttpGet("all/{userId:Guid}")]
         public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetAllCompanies(Guid userId)

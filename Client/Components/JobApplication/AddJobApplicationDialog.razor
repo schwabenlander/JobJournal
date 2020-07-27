@@ -18,13 +18,13 @@
 
             <div class="form-group">
                 <label for="jobTitle">Job Title: </label>
-                <InputText id="jobTitle" class="form-control" @bind-Value="@Application.JobTitle" placeholder="Job Title"></InputText>
+                <InputText id="jobTitle" class="form-control" @bind-Value="Application.JobTitle" placeholder="Job Title"></InputText>
                 <ValidationMessage For="@(() => Application.JobTitle)" />
             </div>
 
             <div class="form-group">
                 <label for="applicationDate">Date of Application: </label>
-                <InputDate id="applicationDate" class="form-control" @bind-Value="@Application.ApplicationDate"></InputDate>
+                <InputDate id="applicationDate" class="form-control" @bind-Value="Application.ApplicationDate"></InputDate>
                 <ValidationMessage For="@(() => Application.ApplicationDate)" />
             </div>
 
@@ -48,6 +48,12 @@
                     }
                 </InputSelectNumber>
                 <ValidationMessage For="@(() => Application.ApplicationStatusId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Comments: </label>
+                <InputTextArea id="comments" class="form-control" @bind-Value="Application.Comments" placeholder="Comments"></InputTextArea>
+                <ValidationMessage For="@(() => Application.Comments)" />
             </div>
 
             <div class="modal-footer">

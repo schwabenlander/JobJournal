@@ -33,5 +33,7 @@ namespace JobJournal.Shared
 
         [Required]
         public int ApplicationMethodId { get; set; }
+
+        public string Comments { get; set; }
     }
 }

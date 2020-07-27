@@ -3,6 +3,7 @@
         <div class="card">
             <h3 class="card-header">@Contact.FullName</h3>
             <div class="card-body">
+                <h3 class="card-header">@Contact.JobTitle</h3>
                 <p class="card-text">
                     <ul>
                         <li>
@@ -16,6 +17,9 @@
                         </li>
                         <li>
                             Date of Most Recent Contact: @Contact.MostRecentContactDate?.ToShortDateString()
+                        </li>
+                        <li>
+                            Comments: <br />@Contact.Comments
                         </li>
                     </ul>
                 </p>
