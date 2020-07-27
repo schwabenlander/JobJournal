@@ -48,5 +48,10 @@ namespace JobJournal.Client.Services
         {
             await _httpClient.DeleteAsync($"api/company/{id}");
         }
+
+        public async Task<int> GetCompanyCountForUserAsync(Guid userId)
+        {
+            return await _httpClient.GetFromJsonAsync<int>($"api/company/all/{userId}/count");
+        }
     }
 }

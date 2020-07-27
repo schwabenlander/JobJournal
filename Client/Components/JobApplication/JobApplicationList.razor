@@ -3,19 +3,27 @@
 @inject ICompanyDataService CompanyDataService
 @inject NavigationManager NavigationManager
 
-<AddJobApplicationDialog @ref="AddJobApplicationDialog" OnNewJobApplicationSaved="NewJobApplicationAdded" />
-
 <h1>Job Applications</h1>
-
-
-<div style="padding-bottom: 10px;">
-    <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
-        <i class="fas fa-plus-square"></i> Add Job Application
-    </button>
-</div>
 
 @if (JobApplications != null)
 {
+    @if (showAddJobButton)
+    {
+        <AddJobApplicationDialog @ref="AddJobApplicationDialog" OnNewJobApplicationSaved="NewJobApplicationAdded" />
+
+        <div style="padding-bottom: 10px;">
+            <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
+                <i class="fas fa-plus-square"></i> Add Job Application
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            <span style="color:red"><i class="fas fa-exclamation-triangle"></i> You must add a company before you can add a job. <button class="btn btn-danger" @onclick="NavigateToCompanies">Go to Companies</button></span>
+        </div>
+    }
+
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -55,7 +63,7 @@ else
 
     AddJobApplicationDialog AddJobApplicationDialog { get; set; }
 
-    bool ShowAddJobButton { get; set; } = false;
+    bool showAddJobButton { get; set; } = false;
 
     public async Task GetJobApplicationsAsync()
     {
@@ -64,8 +72,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        if (await CompanyDataService.GetCompanyCountForUserAsync(UserId) > 0)
+            showAddJobButton = true;
         await GetJobApplicationsAsync();
-        var companies = await CompanyDataService.GetCompaniesAsync(UserId);
     }
 
     protected async Task NewJobApplicationAdded(JobApplicationDTO jobApplication)
@@ -78,5 +87,10 @@ else
     protected void ShowAddJobApplicationModal()
     {
         AddJobApplicationDialog.Show();
+    }
+
+    protected void NavigateToCompanies()
+    {
+        NavigationManager.NavigateTo($"company/all");
     }
 }
