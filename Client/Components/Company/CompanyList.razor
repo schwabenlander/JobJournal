@@ -13,29 +13,27 @@
     </button>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Company</th>
-                <th scope="col">Location</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <GenericList Items="companies">
-                <EmptyTemplate>
-                    <tr>
-                        <td colspan="3" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no companies in your profile.</td>
-                    </tr>
-                </EmptyTemplate>
-                <ElementTemplate Context="company">
-                    <CompanyListRow Company="company" @key="company" OnRowChanged="GetCompaniesAsync" />
-                </ElementTemplate>
-            </GenericList>
-        </tbody>
-    </table>
-</div>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Location</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <GenericList Items="companies">
+            <EmptyTemplate>
+                <tr>
+                    <td colspan="3" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no companies in your profile.</td>
+                </tr>
+            </EmptyTemplate>
+            <ElementTemplate Context="company">
+                <CompanyListRow Company="company" @key="company" OnRowChanged="GetCompaniesAsync" />
+            </ElementTemplate>
+        </GenericList>
+    </tbody>
+</table>
 
 @code {
     List<CompanyDTO> companies;

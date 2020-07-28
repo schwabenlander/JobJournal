@@ -49,10 +49,12 @@ namespace JobJournal.Server.Data
             var contactToUpdate = await _db.CompanyContacts.FindAsync(companyContact.Id);
 
             contactToUpdate.FullName = companyContact.FullName;
+            contactToUpdate.JobTitle = companyContact.JobTitle;
             contactToUpdate.EmailAddress = companyContact.EmailAddress;
             contactToUpdate.PhoneNumber = companyContact.PhoneNumber;
             contactToUpdate.FirstContactDate = companyContact.FirstContactDate;
             contactToUpdate.MostRecentContactDate = companyContact.MostRecentContactDate;
+            contactToUpdate.Comments = companyContact.Comments;
 
             var updatedContact = _db.CompanyContacts.Update(contactToUpdate);
             await _db.SaveChangesAsync();

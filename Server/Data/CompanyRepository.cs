@@ -44,6 +44,7 @@ namespace JobJournal.Server.Data
             companyToUpdate.EmailAddress = company.EmailAddress;
             companyToUpdate.City = company.City;
             companyToUpdate.State = company.State;
+            companyToUpdate.Comments = company.Comments;
 
             var updatedCompany = _db.Companies.Update(companyToUpdate);
             await _db.SaveChangesAsync();
