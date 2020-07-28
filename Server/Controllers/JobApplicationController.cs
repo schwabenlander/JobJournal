@@ -59,11 +59,11 @@ namespace JobJournal.Server.Controllers
 
         // GET api/jobapplication/58E55E99-CBAD-4C93-B804-FE8C265F9835
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<JobApplicationDTO>> GetJobApplication(Guid id)
+        public ActionResult<JobApplicationDTO> GetJobApplication(Guid id)
         {
             try
             {
-                var jobApplication = await _repository.GetJobApplication(id);
+                var jobApplication = _repository.GetJobApplication(id);
                 return Ok(_mapper.Map<JobApplicationDTO>(jobApplication));
             }
             catch

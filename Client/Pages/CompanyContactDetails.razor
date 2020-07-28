@@ -18,8 +18,8 @@
             <button type="button" class="btn btn-secondary" @onclick="NavigateToCompanyContacts">
                 <i class="fas fa-arrow-left"></i>
             </button>
-            <button class="btn btn-primary" @onclick="Update">Edit</button>
-            <button class="btn btn-danger" @onclick="Delete">Delete</button>
+            <button class="btn btn-primary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
+            <button class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
 
             <hr />
 
@@ -126,6 +126,11 @@
         principal = (await authState).User;
         UserId = Guid.Parse(principal.FindFirst("oid").Value);
 
+        await GetCompanyContact();
+    }
+
+    protected async Task GetCompanyContact()
+    {
         CompanyContact = await ContactDataService.GetCompanyContactAsync(ContactId);
     }
 
@@ -141,9 +146,10 @@
         DeleteModal.Show();
     }
 
-    public void ContactUpdated(CompanyContactDTO contact)
+    public async Task ContactUpdated(CompanyContactDTO contact)
     {
         Console.WriteLine($"{contact.FullName} was updated in the database");
+        await GetCompanyContact();
     }
 
     public void ContactDeleted(CompanyContactDTO contact)

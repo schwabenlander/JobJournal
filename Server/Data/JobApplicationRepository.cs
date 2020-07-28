@@ -1,5 +1,6 @@
 ﻿using JobJournal.Client;
 using JobJournal.Shared;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,9 +38,13 @@ namespace JobJournal.Server.Data
             await _db.SaveChangesAsync();
         }
 
-        public async Task<JobApplication> GetJobApplication(Guid applicationId)
+        public JobApplication GetJobApplication(Guid applicationId)
         {
-            return await _db.JobApplications.FindAsync(applicationId);
+            return _db.JobApplications
+                .Include(j => j.Company)
+                .Include(j => j.ApplicationStatus)
+                .Include(j => j.ApplicationMethod).
+                FirstOrDefault(j => j.Id == applicationId);
         }
 
         public IQueryable<JobApplication> GetJobApplicationsForUser(Guid userId)

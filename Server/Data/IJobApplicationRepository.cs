@@ -8,7 +8,7 @@ namespace JobJournal.Server.Data
 {
     public interface IJobApplicationRepository
     {
-        Task<JobApplication> GetJobApplication(Guid applicationId);
+        JobApplication GetJobApplication(Guid applicationId);
         IQueryable<JobApplication> GetJobApplicationsForUser(Guid userId);
         IQueryable<JobApplication> GetJobApplicationsForCompany(Guid companyId);
         Task<JobApplication> AddJobApplication(JobApplication application);
