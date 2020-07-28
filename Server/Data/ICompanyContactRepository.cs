@@ -8,7 +8,7 @@ namespace JobJournal.Server.Data
 {
     public interface ICompanyContactRepository
     {
-        Task<CompanyContact> GetCompanyContact(Guid contactId);
+        CompanyContact GetCompanyContact(Guid contactId);
         IQueryable<CompanyContact> GetContactsForCompany(Guid companyId);
         Task<CompanyContact> AddCompanyContact(CompanyContact companyContact);
         Task<CompanyContact> UpdateCompanyContact(CompanyContact companyContact);

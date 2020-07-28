@@ -43,11 +43,11 @@ namespace JobJournal.Server.Controllers
 
         // GET api/companycontact/1E98B65B-C56D-470D-B509-148AC693A013
         [HttpGet("companycontact/{id:Guid}")]
-        public async Task<ActionResult<CompanyContactDTO>> GetCompanyContact(Guid id)
+        public ActionResult<CompanyContactDTO> GetCompanyContact(Guid id)
         {
             try
             {
-                var contact = await _repository.GetCompanyContact(id);
+                var contact = _repository.GetCompanyContact(id);
                 return Ok(_mapper.Map<CompanyContactDTO>(contact));
             }
             catch

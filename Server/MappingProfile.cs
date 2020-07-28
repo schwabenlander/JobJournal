@@ -13,7 +13,9 @@ namespace JobJournal.Server
         public MappingProfile()
         {
             CreateMap<Company, CompanyDTO>().ReverseMap();
-            CreateMap<CompanyContact, CompanyContactDTO>().ReverseMap();
+            CreateMap<CompanyContact, CompanyContactDTO>()
+                .ForMember(m => m.CompanyName, opt => opt.MapFrom(src => src.Company.CompanyName))
+                .ReverseMap();
             CreateMap<ApplicationMethod, ApplicationMethodDTO>().ReverseMap();
             CreateMap<ApplicationStatus, ApplicationStatusDTO>().ReverseMap();
             CreateMap<JobApplication, JobApplicationDTO>()

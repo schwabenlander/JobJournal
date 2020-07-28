@@ -15,6 +15,8 @@ namespace JobJournal.Shared.DTOs
         [Required]
         public Guid CompanyId { get; set; }
 
+        public string CompanyName { get; set; }
+
         [Required(ErrorMessage = "Full Name is required")]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }

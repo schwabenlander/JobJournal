@@ -33,9 +33,9 @@ namespace JobJournal.Server.Data
             await _db.SaveChangesAsync();
         }
 
-        public async Task<CompanyContact> GetCompanyContact(Guid contactId)
+        public CompanyContact GetCompanyContact(Guid contactId)
         {
-            return await _db.CompanyContacts.FirstAsync(c => c.Id == contactId);
+            return _db.CompanyContacts.Include(c => c.Company).FirstOrDefault(c => c.Id == contactId);
         }
 
         public IQueryable<CompanyContact> GetContactsForCompany(Guid companyId)

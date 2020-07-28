@@ -13,6 +13,7 @@
             <DeleteContactDialog @ref="DeleteModal" Contact="CompanyContact" OnContactDeleted="ContactDeleted" />
 
             <h1>@CompanyContact.FullName</h1>
+            <h3>@CompanyContact.CompanyName</h3>
 
             <button type="button" class="btn btn-secondary" @onclick="NavigateToCompanyContacts">
                 <i class="fas fa-arrow-left"></i>
@@ -55,16 +56,30 @@
                         <strong>First Contact:</strong>
                     </div>
                     <div class="col-lg-10">
-                        @CompanyContact.FirstContactDate?.ToShortDateString()
+                        @if (CompanyContact.FirstContactDate == null)
+                        {
+                            <text>N/A</text>
+                        }
+                        else
+                        {
+                            @CompanyContact.FirstContactDate?.ToShortDateString()
+                        }
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-2">
-                        <strong>Recent Contact:</strong>
+                        <strong>Most Recent Contact:</strong>
                     </div>
                     <div class="col-lg-10">
-                        @CompanyContact.MostRecentContactDate?.ToShortDateString()
+                        @if (CompanyContact.MostRecentContactDate == null)
+                        {
+                            <text>N/A</text>
+                        }
+                        else
+                        {
+                            @CompanyContact.MostRecentContactDate?.ToShortDateString()
+                        }
                     </div>
                 </div>
 
