@@ -59,6 +59,11 @@ else
     [CascadingParameter]
     public Guid UserId { get; set; }
 
+    [Parameter]
+    public Guid CompanyId { get; set; }
+
+    CompanyDTO Company { get; set; }
+
     public List<JobApplicationDTO> JobApplications { get; set; }
 
     AddJobApplicationDialog AddJobApplicationDialog { get; set; }
@@ -67,13 +72,15 @@ else
 
     public async Task GetJobApplicationsAsync()
     {
-        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).OrderByDescending(j => j.ApplicationDate).ToList();
+        JobApplications = (await JobApplicationDataService.GetJobApplicationsByCompanyAsync(CompanyId)).OrderByDescending(j => j.ApplicationDate).ToList();
     }
 
     protected override async Task OnInitializedAsync()
     {
         if (await CompanyDataService.GetCompanyCountForUserAsync(UserId) > 0)
             showAddJobButton = true;
+
+        Company = await CompanyDataService.GetCompanyAsync(CompanyId);
         await GetJobApplicationsAsync();
     }
 

@@ -1,4 +1,4 @@
-﻿@page "/jobapplication/all"
+﻿@page "/company/{CompanyId:guid}/jobapplication/all"
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -6,12 +6,15 @@
 @attribute [Authorize]
 
 <CascadingValue Value="UserId" IsFixed="true">
-    <JobApplicationList />
+    <JobApplicationList CompanyId="CompanyId" />
 </CascadingValue>
 
 @code {
     [CascadingParameter]
     private Task<AuthenticationState> authState { get; set; }
+
+    [Parameter]
+    public Guid CompanyId { get; set; }
 
     private ClaimsPrincipal principal;
 

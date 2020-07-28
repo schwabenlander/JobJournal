@@ -8,16 +8,12 @@
     <th scope="row">@Company.CompanyName</th>
     <td>@Company.City, @Company.State</td>
     <td>
-        <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Details</button>
+        <button type="button" class="btn btn-primary" @onclick="NavigateToJobApplications"><i class="fab fa-black-tie"></i> Applications</button>
         <button type="button" class="btn btn-success" @onclick="NavigateToContacts"><i class="fas fa-user-friends"></i> Contacts</button>
         <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
         <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
     </td>
 </tr>
-@if (showDetails)
-{
-    <CompanyDetailsRow Company="Company" OnHideDetails="ToggleDetails" />
-}
 
 @code {
     [Parameter]
@@ -30,24 +26,14 @@
 
     EditCompanyDialog EditModal { get; set; }
 
-    private bool showDetails { get; set; } = false;
-    private string detailsIcon { get; set; } = "oi oi-caret-bottom";
-
     protected void NavigateToContacts()
     {
         NavigationManager.NavigateTo($"company/{Company.Id}/contacts");
     }
 
-    protected void ToggleDetails()
+    protected void NavigateToJobApplications()
     {
-        showDetails = !showDetails;
-
-        if (showDetails)
-            detailsIcon = "oi oi-caret-top";
-        else
-            detailsIcon = "oi oi-caret-bottom";
-
-        InvokeAsync(StateHasChanged);
+        NavigationManager.NavigateTo($"company/{Company.Id}/jobapplication/all");
     }
 
     protected void Update()
