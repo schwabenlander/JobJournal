@@ -69,6 +69,9 @@
     public Guid UserId { get; set; }
 
     [Parameter]
+    public Guid CompanyId { get; set; }
+
+    [Parameter]
     public EventCallback<JobApplicationDTO> OnNewJobApplicationSaved { get; set; }
 
     [Inject]
@@ -98,7 +101,7 @@
     private void SetDefaults()
     {
         Application.ApplicationDate = DateTime.Now.Date;
-        Application.CompanyId = Companies.FirstOrDefault().Id;
+        Application.CompanyId = CompanyId;
         Application.ApplicationMethodId = ApplicationMethods.FirstOrDefault().Id;
         Application.ApplicationStatusId = ApplicationStatuses.FirstOrDefault().Id;
     }

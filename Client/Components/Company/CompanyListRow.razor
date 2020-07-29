@@ -5,13 +5,16 @@
 <EditCompanyDialog @ref="EditModal" Company="Company" OnEditCompanySaved="CompanyUpdated"></EditCompanyDialog>
 
 <tr>
-    <th scope="row">@Company.CompanyName</th>
+    <th scope="row">
+        @Company.CompanyName
+    </th>
     <td>@Company.City, @Company.State</td>
     <td>
-        <button type="button" class="btn btn-primary" @onclick="NavigateToJobApplications"><i class="fab fa-black-tie"></i> Applications</button>
-        <button type="button" class="btn btn-success" @onclick="NavigateToContacts"><i class="fas fa-user-friends"></i> Contacts</button>
-        <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
-        <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button type="button" class="btn btn-primary" title="Company Info" @onclick="NavigateToCompanyDetails"><i class="fas fa-info-circle"></i></button>
+        <button type="button" class="btn btn-success" title="Applications" @onclick="NavigateToJobApplications"><i class="fas fa-list"></i></button>
+        <button type="button" class="btn btn-info" title="Contacts" @onclick="NavigateToContacts"><i class="fas fa-user-friends"></i></button>
+        <button type="button" class="btn btn-warning" title="Edit" @onclick="Update"><i class="fas fa-pencil-alt"></i></button>
+        <button type="button" class="btn btn-danger" title="Delete" @onclick="Delete"><i class="fas fa-trash-alt"></i></button>
     </td>
 </tr>
 
@@ -34,6 +37,11 @@
     protected void NavigateToJobApplications()
     {
         NavigationManager.NavigateTo($"company/{Company.Id}/jobapplication/all");
+    }
+
+    protected void NavigateToCompanyDetails()
+    {
+        NavigationManager.NavigateTo($"company/{Company.Id}");
     }
 
     protected void Update()

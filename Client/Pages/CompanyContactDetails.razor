@@ -38,7 +38,14 @@
                         <strong>E-mail Address:</strong>
                     </div>
                     <div class="col-lg-10">
-                        <a href="mailto:@CompanyContact.EmailAddress">@CompanyContact.EmailAddress</a>
+                        @if (string.IsNullOrEmpty(CompanyContact.EmailAddress))
+                        {
+                            <text>N/A</text>
+                        }
+                        else
+                        {
+                            <a href="mailto:@CompanyContact.EmailAddress">@CompanyContact.EmailAddress</a>
+                        }
                     </div>
                 </div>
 
@@ -47,7 +54,14 @@
                         <strong>Telephone Number:</strong>
                     </div>
                     <div class="col-lg-10">
-                        <a href="tel:@GetTelephoneDigits(CompanyContact.PhoneNumber)">@CompanyContact.PhoneNumber</a>
+                        @if (string.IsNullOrEmpty(CompanyContact.PhoneNumber))
+                        {
+                            <text>N/A</text>
+                        }
+                        else
+                        {
+                            <a href="tel:@GetTelephoneDigits(CompanyContact.PhoneNumber)">@CompanyContact.PhoneNumber</a>
+                        }
                     </div>
                 </div>
 
@@ -88,7 +102,14 @@
                         <strong>Comments:</strong>
                     </div>
                     <div class="col-lg-10">
-                        @CompanyContact.Comments
+                        @if (string.IsNullOrEmpty(CompanyContact.Comments))
+                        {
+                            <text>N/A</text>
+                        }
+                        else
+                        {
+                            @CompanyContact.Comments
+                        }
                     </div>
                 </div>
             </div>

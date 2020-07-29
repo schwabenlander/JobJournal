@@ -15,16 +15,11 @@
         @JobApplication.ApplicationStatus
     </td>
     <td>
-        <button type="button" class="btn btn-primary" @onclick="ToggleDetails"><i class="@detailsIcon"></i> Info</button>
         <button type="button" class="btn btn-success" @onclick="NavigateToJobApplicationDetails"><i class="fas fa-info-circle"></i> Details</button>
         <button type="button" class="btn btn-secondary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
         <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
     </td>
 </tr>
-@if (showDetails)
-{
-    <JobApplicationDetailsRow JobApplication="JobApplication" RowCssClass="rowCssClass" OnHideDetails="ToggleDetails" />
-}
 
 @code {
     DeleteJobApplicationDialog DeleteModal { get; set; }
@@ -66,21 +61,6 @@
         }
     }
 
-    private bool showDetails { get; set; } = false;
-    private string detailsIcon { get; set; } = "oi oi-caret-bottom";
-
-    protected void ToggleDetails()
-    {
-        showDetails = !showDetails;
-
-        if (showDetails)
-            detailsIcon = "oi oi-caret-top";
-        else
-            detailsIcon = "oi oi-caret-bottom";
-
-        InvokeAsync(StateHasChanged);
-    }
-
     protected void Update()
     {
         Console.WriteLine($"Updating job application: {JobApplication.JobTitle}");
@@ -107,6 +87,6 @@
 
     protected void NavigateToJobApplicationDetails()
     {
-        NavigationManager.NavigateTo($"/jobapplication/{JobApplication.Id}");
+        NavigationManager.NavigateTo($"/company/{JobApplication.CompanyId}/jobapplication/{JobApplication.Id}");
     }
 }

@@ -1,28 +1,22 @@
-﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject IJobApplicationDataService JobApplicationDataService
+﻿@inject IJobApplicationDataService JobApplicationDataService
 @inject ICompanyDataService CompanyDataService
 @inject NavigationManager NavigationManager
 
-<h1>Job Applications</h1>
-
 @if (JobApplications != null)
 {
-    @if (showAddJobButton)
-    {
-        <AddJobApplicationDialog @ref="AddJobApplicationDialog" OnNewJobApplicationSaved="NewJobApplicationAdded" />
+    <AddJobApplicationDialog @ref="AddJobApplicationDialog" CompanyId="CompanyId" OnNewJobApplicationSaved="NewJobApplicationAdded" />
 
-        <div style="padding-bottom: 10px;">
-            <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
-                <i class="fas fa-plus-square"></i> Add Job Application
-            </button>
-        </div>
-    }
-    else
-    {
-        <div class="alert alert-danger" role="alert">
-            <span style="color:red"><i class="fas fa-exclamation-triangle"></i> You must add a company before you can add a job. <button class="btn btn-danger" @onclick="NavigateToCompanies">Go to Companies</button></span>
-        </div>
-    }
+    <h1>@Company.CompanyName Job Applications</h1>
+
+    <div style="padding-bottom: 10px;">
+        <button type="button" class="btn btn-secondary" @onclick="NavigateBackToCompanies">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
+            <i class="fas fa-plus-square"></i> Add Job Application
+        </button>
+    </div>
 
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -38,7 +32,7 @@
             <GenericList Items="JobApplications">
                 <EmptyTemplate>
                     <tr>
-                        <td colspan="5" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no job applications.</td>
+                        <td colspan="5" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no job applications for @Company.CompanyName.</td>
                     </tr>
                 </EmptyTemplate>
                 <ElementTemplate Context="application">
@@ -77,9 +71,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (await CompanyDataService.GetCompanyCountForUserAsync(UserId) > 0)
-            showAddJobButton = true;
-
         Company = await CompanyDataService.GetCompanyAsync(CompanyId);
         await GetJobApplicationsAsync();
     }
@@ -96,7 +87,7 @@ else
         AddJobApplicationDialog.Show();
     }
 
-    protected void NavigateToCompanies()
+    protected void NavigateBackToCompanies()
     {
         NavigationManager.NavigateTo($"company/all");
     }

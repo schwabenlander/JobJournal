@@ -1,4 +1,4 @@
-﻿@page "/jobapplication/{Id:guid}"
+﻿@page "/company/{CompanyId:guid}/jobapplication/{Id:guid}"
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Authorization
 @using System.Text.RegularExpressions;
@@ -15,7 +15,7 @@
         <h1>@JobApplication.JobTitle</h1>
         <h3>@JobApplication.CompanyName</h3>
 
-        <button type="button" class="btn btn-secondary" @onclick="NavigateToCompanies">
+        <button type="button" class="btn btn-secondary" @onclick="NavigateBackToApplications">
             <i class="fas fa-arrow-left"></i>
         </button>
         <button class="btn btn-primary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
@@ -60,7 +60,14 @@
                     <strong>Comments:</strong>
                 </div>
                 <div class="col-lg-10">
-                    @JobApplication.Comments
+                    @if (string.IsNullOrEmpty(JobApplication.Comments))
+                    {
+                        <text>N/A</text>
+                    }
+                    else
+                    {
+                        @JobApplication.Comments
+                    }
                 </div>
             </div>
         </div>
@@ -81,6 +88,9 @@
     private ClaimsPrincipal principal;
 
     private Guid UserId { get; set; }
+
+    [Parameter]
+    public Guid CompanyId { get; set; }
 
     [Parameter]
     public Guid Id { get; set; }
@@ -124,11 +134,11 @@
     public void JobApplicationDeleted(JobApplicationDTO jobApplication)
     {
         Console.WriteLine($"{jobApplication.JobTitle} was removed from the database");
-        NavigateToCompanies();
+        NavigateBackToApplications();
     }
 
-    protected void NavigateToCompanies()
+    protected void NavigateBackToApplications()
     {
-        NavigationManager.NavigateTo($"/company/all");
+        NavigationManager.NavigateTo($"/company/{JobApplication.CompanyId}/jobapplication/all");
     }
 }
