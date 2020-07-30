@@ -6,7 +6,7 @@
 {
     <AddJobApplicationDialog @ref="AddJobApplicationDialog" CompanyId="CompanyId" OnNewJobApplicationSaved="NewJobApplicationAdded" />
 
-    <h1>@Company.CompanyName Job Applications</h1>
+    <h1><a href="/company/@Company.Id">@Company.CompanyName</a> Job Applications</h1>
 
     <div style="padding-bottom: 10px;">
         <button type="button" class="btn btn-secondary" onclick="javascript:history.go(-1)">
@@ -22,8 +22,7 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Job Title</th>
-                <th scope="col">Company</th>
-                <th scope="col">Applcation Date</th>
+                <th scope="col">Application Date</th>
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -32,7 +31,7 @@
             <GenericList Items="JobApplications">
                 <EmptyTemplate>
                     <tr>
-                        <td colspan="5" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no job applications for @Company.CompanyName.</td>
+                        <td colspan="4" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no job applications for @Company.CompanyName.</td>
                     </tr>
                 </EmptyTemplate>
                 <ElementTemplate Context="application">

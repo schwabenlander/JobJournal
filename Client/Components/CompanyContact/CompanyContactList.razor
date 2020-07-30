@@ -8,7 +8,7 @@
 
 @if (Company != null && Contacts != null)
 {
-    <h1>@Company.CompanyName Contacts</h1>
+    <h1><a href="/company/@Company.Id">@Company.CompanyName</a> Contacts</h1>
 
     <div style="padding-bottom: 10px;">
         <button type="button" class="btn btn-secondary" onclick="javascript:history.go(-1)">
