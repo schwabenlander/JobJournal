@@ -6,11 +6,11 @@
 
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity.Name!
-        <button class="nav-link btn btn-lin" @onclick="BeginLogout"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+        <a href="authentication/profile">@context.User.Identity.Name</a> 
+        <button class="nav-link btn btn-link" @onclick="BeginLogout"><i class="fas fa-sign-out-alt"></i> Log Out</button>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login"><i class="fas fa-sign-in-alt"></i> Log In</a>
+        <button class="nav-link btn btn-primary" @onclick="NavigateToLogin"><i class="fas fa-sign-in-alt"></i> Log In</button>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -19,5 +19,10 @@
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
+    }
+
+    private void NavigateToLogin(MouseEventArgs args)
+    {
+        Navigation.NavigateTo("authentication/login");
     }
 }

@@ -3,12 +3,12 @@
 
 @if (isLoading)
 {
-    <LoadingIndicator />
+    <p><LoadingIndicator /></p>
 }
 else
 {
     <p class="lead">
-        You have applied for <strong>@JobApplicationCount</strong> jobs at <strong>@JobApplicationCount</strong> companies.
+        You have applied for <strong>@JobApplicationCount</strong> jobs at <strong>@CompanyCount</strong> companies.
         @if (JobApplicationCount > 0)
         {
             <text>Keep up the good work!</text>
