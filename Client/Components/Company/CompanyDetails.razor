@@ -8,11 +8,13 @@
 
     <h1>@Company.CompanyName</h1>
     <h3>@Company.City, @Company.State</h3>
-    <button type="button" class="btn btn-secondary" @onclick="NavigateBackToCompanies">
+    <button type="button" class="btn btn-secondary" onclick="javascript:history.go(-1)">
         <i class="fas fa-arrow-left"></i>
     </button>
-    <button class="btn btn-primary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
-    <button class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+    <button type="button" class="btn btn-info" @onclick="NavigateToJobApplications"><i class="fas fa-list"></i> Job Applications</button>
+    <button type="button" class="btn btn-success" @onclick="NavigateToContacts"><i class="fas fa-user-friends"></i> Contacts</button>
+    <button type="button" class="btn btn-primary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>
+    <button type="button" class="btn btn-danger" @onclick="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
 
     <hr />
 
@@ -138,6 +140,16 @@ else
     protected void NavigateBackToCompanies()
     {
         NavigationManager.NavigateTo($"/company/all");
+    }
+
+    protected void NavigateToContacts()
+    {
+        NavigationManager.NavigateTo($"company/{Company.Id}/contacts");
+    }
+
+    protected void NavigateToJobApplications()
+    {
+        NavigationManager.NavigateTo($"company/{Company.Id}/jobapplication/all");
     }
 
     string GetTelephoneDigits(string phoneNumber)

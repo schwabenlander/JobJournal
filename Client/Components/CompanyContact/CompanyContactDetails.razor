@@ -6,9 +6,9 @@
     <DeleteContactDialog @ref="DeleteModal" Contact="CompanyContact" OnContactDeleted="ContactDeleted" />
 
     <h1>@CompanyContact.FullName</h1>
-    <h3>@CompanyContact.CompanyName</h3>
+    <h3><a href="/company/@CompanyContact.CompanyId">@CompanyContact.CompanyName</a></h3>
 
-    <button type="button" class="btn btn-secondary" @onclick="NavigateToCompanyContacts">
+    <button type="button" class="btn btn-secondary" onclick="javascript:history.go(-1)">
         <i class="fas fa-arrow-left"></i>
     </button>
     <button class="btn btn-primary" @onclick="Update"><i class="fas fa-pencil-alt"></i> Edit</button>

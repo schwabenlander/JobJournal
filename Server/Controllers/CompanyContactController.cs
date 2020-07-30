@@ -68,8 +68,10 @@ namespace JobJournal.Server.Controllers
 
                 return CreatedAtAction(nameof(GetCompanyContact), new { id = newContact.Id }, _mapper.Map<CompanyContactDTO>(newContact));
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
                 // TODO: Log exception
                 return BadRequest();
             }
