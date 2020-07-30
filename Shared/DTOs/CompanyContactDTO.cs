@@ -21,8 +21,8 @@ namespace JobJournal.Shared.DTOs
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Title is required")]
-        [Display(Name = "Title")]
+        [Required(ErrorMessage = "Job Title is required")]
+        [Display(Name = "Job Title")]
         public string JobTitle { get; set; }
 
         [DataType(DataType.PhoneNumber)]

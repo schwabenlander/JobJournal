@@ -18,7 +18,7 @@ namespace JobJournal.Shared.DTOs
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Job Title is required")]
         [Display(Name = "Job Title")]
         public string JobTitle { get; set; }
 
