@@ -1,15 +1,30 @@
-﻿@page "/"
+﻿@inject NavigationManager NavigationManager
+@page "/"
 
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to JobJournal.net!</h1>
-    <p class="lead">The <em>easy</em> way to track your job applications.</p>
-    <hr class="my-4">
-    <p>Getting started is as easy as 1, 2, 3!</p>
-    <ol>
-        <li><a href="authentication/login">Sign up</a> for a free account</li>
-        <li><a href="company/all">Add a company</a> to your profile</li>
-        <li>Record your first job application</li>
-    </ol>
-    @*<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>*@
-</div>
+<AuthorizeView>
+    <Authorized>
+        <h2>Welcome back, @context.User.Identity.Name!</h2>
+        <button type="button" class="btn btn-primary" @onclick="NavigateToCompanyList">Go to Companies</button>
+    </Authorized>
+    <NotAuthorized>
+        <div class="jumbotron">
+            <h1>Welcome to JobJournal.net!</h1>
+            <p class="lead">The <em>easy</em> way to track your job applications.</p>
+            <hr class="my-4">
+            <p>Getting started is as easy as 1, 2, 3:</p>
+            <ol>
+                <li><a href="authentication/login">Sign up</a> for a free account</li>
+                <li><a href="company/all">Add a company</a> to your profile</li>
+                <li>Record your first job application</li>
+            </ol>
+            @*<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>*@
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 
+@code {
+    void NavigateToCompanyList()
+    {
+        NavigationManager.NavigateTo("/company/all");
+    }
+}
