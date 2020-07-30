@@ -13,5 +13,6 @@ namespace JobJournal.Server.Data
         Task<Company> AddCompany(Company company);
         Task<Company> UpdateCompany(Company company);
         Task DeleteCompany(Guid companyId);
+        Task<int> GetCompanyCountForUser(Guid userId);
     }
 }

@@ -49,6 +49,10 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<JobApplicationDTO>($"api/jobapplication/{id}");
         }
 
+        public async Task<int> GetJobApplicationCountForUserAsync(Guid userId)
+        {
+            return await _httpClient.GetFromJsonAsync<int>($"api/jobapplication/user/{userId}/count");
+        }
 
         public async Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId)
         {

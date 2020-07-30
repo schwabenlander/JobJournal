@@ -74,5 +74,10 @@ namespace JobJournal.Server.Data
 
             return updatedApplication.Entity;
         }
+
+        public async Task<int> GetJobApplicationCountForUser(Guid userId)
+        {
+            return await _db.JobApplications.CountAsync(j => j.UserId == userId);
+        }
     }
 }

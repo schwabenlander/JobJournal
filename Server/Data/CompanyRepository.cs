@@ -1,4 +1,5 @@
 ﻿using JobJournal.Shared;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,11 @@ namespace JobJournal.Server.Data
 
             _db.Companies.Remove(company);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<int> GetCompanyCountForUser(Guid userId)
+        {
+            return await _db.Companies.CountAsync(c => c.UserId == userId);
         }
     }
 }

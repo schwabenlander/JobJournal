@@ -1,28 +1,51 @@
-﻿@inject NavigationManager NavigationManager
-@page "/"
+﻿@page "/"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
 <AuthorizeView>
     <Authorized>
-        <h2>Welcome back, @context.User.Identity.Name!</h2>
-        <button type="button" class="btn btn-primary" @onclick="NavigateToCompanyList">Go to Companies</button>
+        <CascadingValue Value="UserId" IsFixed="true">
+            <div class="jumbotron">
+                <h2>Welcome back, @context.User.Identity.Name!</h2>
+                <JobApplicationStatistics />
+                <button type="button" class="btn btn-primary" @onclick="NavigateToCompanyList">Go to Companies</button>
+            </div>
+        </CascadingValue>
     </Authorized>
     <NotAuthorized>
         <div class="jumbotron">
             <h1>Welcome to JobJournal.net!</h1>
             <p class="lead">The <em>easy</em> way to track your job applications.</p>
-            <hr class="my-4">
             <p>Getting started is as easy as 1, 2, 3:</p>
             <ol>
                 <li><a href="authentication/login">Sign up</a> for a free account</li>
                 <li><a href="company/all">Add a company</a> to your profile</li>
                 <li>Record your first job application</li>
             </ol>
-            @*<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>*@
         </div>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
+
+    private ClaimsPrincipal principal;
+
+    private Guid UserId { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        if ((await authState).User.Identity.IsAuthenticated)
+        {
+            principal = (await authState).User;
+            UserId = Guid.Parse(principal.FindFirst("oid").Value);
+        }
+    }
+
     void NavigateToCompanyList()
     {
         NavigationManager.NavigateTo("/company/all");

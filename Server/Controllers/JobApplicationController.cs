@@ -26,6 +26,20 @@ namespace JobJournal.Server.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("user/{userId:Guid}/count")]
+        public async Task<ActionResult<int>> GetCompanyCountForUser(Guid userId)
+        {
+            try
+            {
+                return Ok(await _repository.GetJobApplicationCountForUser(userId));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
+        }
+
         // GET: api/jobapplication/user/9B27E7B5-1ACF-42C8-919A-6394FD1DDFE8
         [HttpGet("user/{userId:Guid}")]
         public async Task<ActionResult<IEnumerable<JobApplicationDTO>>> GetJobApplications(Guid userId)
