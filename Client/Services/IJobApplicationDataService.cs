@@ -14,7 +14,7 @@ namespace JobJournal.Client.Services
 
         Task<PaginatedResultDTO<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId, int page = 1, int recordsPerPage = 20);
 
-        Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId);
+        Task<PaginatedResultDTO<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId, int page = 1, int recordsPerPage = 20);
 
         Task<JobApplicationDTO> GetJobApplicationAsync(Guid id);
 

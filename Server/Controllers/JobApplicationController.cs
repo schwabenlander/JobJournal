@@ -48,7 +48,7 @@ namespace JobJournal.Server.Controllers
         {
             try
             {
-                var applications = _repository.GetJobApplicationsForUser(userId);
+                var applications = _repository.GetJobApplicationsForUser(userId).OrderByDescending(j => j.ApplicationDate);
 
                 var results = await _mapper.ProjectTo<JobApplicationDTO>(applications.Paginate(paginationDTO)).ToListAsync();
 
@@ -71,11 +71,23 @@ namespace JobJournal.Server.Controllers
 
         // GET: api/jobapplication/company/ad94a572-5104-4303-82f7-fac0a7d06897
         [HttpGet("company/{companyId:Guid}")]
-        public async Task<ActionResult<IEnumerable<JobApplicationDTO>>> GetJobApplicationsForCompany(Guid companyId)
+        public async Task<ActionResult<PaginatedResultDTO<JobApplicationDTO>>> GetJobApplicationsForCompany([FromRoute] Guid companyId, [FromQuery] PaginationDTO paginationDTO)
         {
             try
             {
-                return Ok(await _mapper.ProjectTo<JobApplicationDTO>(_repository.GetJobApplicationsForCompany(companyId)).ToListAsync());
+                var applications = _repository.GetJobApplicationsForCompany(companyId).OrderByDescending(j => j.ApplicationDate);
+
+                var results = await _mapper.ProjectTo<JobApplicationDTO>(applications.Paginate(paginationDTO)).ToListAsync();
+
+                var response = new PaginatedResultDTO<JobApplicationDTO>
+                {
+                    Results = results,
+                    CurrentPage = paginationDTO.Page,
+                    RecordsPerPage = paginationDTO.RecordsPerPage,
+                    TotalRecords = await applications.CountAsync()
+                };
+
+                return Ok(response);
             }
             catch
             {

@@ -59,9 +59,9 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<PaginatedResultDTO<JobApplicationDTO>>($"api/jobapplication/user/{userId}?Page={page}&RecordsPerPage={recordsPerPage}");
         }
 
-        public async Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId)
+        public async Task<PaginatedResultDTO<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId, int page = 1, int recordsPerPage = 20)
         {
-            return await _httpClient.GetFromJsonAsync<List<JobApplicationDTO>>($"api/jobapplication/company/{companyId}");
+            return await _httpClient.GetFromJsonAsync<PaginatedResultDTO<JobApplicationDTO>>($"api/jobapplication/company/{companyId}?Page={page}&RecordsPerPage={recordsPerPage}");
         }
 
         public async Task UpdateJobApplicationAsync(JobApplicationDTO jobApplication)
