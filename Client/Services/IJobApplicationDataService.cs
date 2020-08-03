@@ -12,7 +12,7 @@ namespace JobJournal.Client.Services
 
         Task<IEnumerable<ApplicationStatusDTO>> GetApplicationStatusesAsync();
 
-        Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId);
+        Task<PaginatedResultDTO<JobApplicationDTO>> GetJobApplicationsAsync(Guid userId);
 
         Task<IEnumerable<JobApplicationDTO>> GetJobApplicationsByCompanyAsync(Guid companyId);
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using JobJournal.Client;
 using JobJournal.Server.Data;
+using JobJournal.Server.Utilities;
 using JobJournal.Shared;
 using JobJournal.Shared.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -40,14 +42,25 @@ namespace JobJournal.Server.Controllers
             }
         }
 
-        // GET: api/jobapplication/user/9B27E7B5-1ACF-42C8-919A-6394FD1DDFE8
+        // GET: api/jobapplication/user/9B27E7B5-1ACF-42C8-919A-6394FD1DDFE8?Page=2&RecordsPerPage=20
         [HttpGet("user/{userId:Guid}")]
-        public async Task<ActionResult<IEnumerable<JobApplicationDTO>>> GetJobApplications(Guid userId)
+        public async Task<ActionResult<PaginatedResultDTO<JobApplicationDTO>>> GetJobApplications([FromRoute] Guid userId, [FromQuery] PaginationDTO paginationDTO)
         {
             try
             {
                 var applications = _repository.GetJobApplicationsForUser(userId);
-                return Ok(await _mapper.ProjectTo<JobApplicationDTO>(_repository.GetJobApplicationsForUser(userId)).ToListAsync());
+
+                var results = await _mapper.ProjectTo<JobApplicationDTO>(applications.Paginate(paginationDTO)).ToListAsync();
+
+                var response = new PaginatedResultDTO<JobApplicationDTO> 
+                { 
+                    Results = results, 
+                    CurrentPage = paginationDTO.Page, 
+                    RecordsPerPage = paginationDTO.RecordsPerPage, 
+                    TotalRecords = await applications.CountAsync()
+                };
+
+                return Ok(response);
             }
             catch
             {
