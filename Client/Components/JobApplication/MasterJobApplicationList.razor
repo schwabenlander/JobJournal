@@ -1,0 +1,81 @@
+﻿@inject IJobApplicationDataService JobApplicationDataService
+@inject NavigationManager NavigationManager
+
+@if (JobApplications != null)
+{
+    <AddJobApplicationDialog @ref="AddJobApplicationDialog" OnNewJobApplicationSaved="NewJobApplicationAdded" />
+
+    <h1>Job Applications</h1>
+
+    <div style="padding-bottom: 10px;">
+        <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
+            <i class="fas fa-plus"></i> Add a Job Application
+        </button>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Job Title</th>
+                <th scope="col">Company</th>
+                <th scope="col">Application Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <GenericList Items="JobApplications">
+                <EmptyTemplate>
+                    <tr>
+                        <td colspan="5" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no job applications.</td>
+                    </tr>
+                </EmptyTemplate>
+                <ElementTemplate Context="application">
+                    <JobApplicationListRow JobApplication="application" DisplayCompanyName="true" @key="application" OnRowChanged="OnInitializedAsync" />
+                </ElementTemplate>
+            </GenericList>
+        </tbody>
+    </table>
+}
+else
+{
+    <LoadingIndicator />
+}
+
+@code {
+    [CascadingParameter]
+    public Guid UserId { get; set; }
+
+    public List<JobApplicationDTO> JobApplications { get; set; }
+
+    AddJobApplicationDialog AddJobApplicationDialog { get; set; }
+
+    bool showAddJobButton { get; set; } = false;
+
+    public async Task GetJobApplicationsAsync()
+    {
+        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId, 1, 1)).Results.OrderByDescending(j => j.ApplicationDate).ToList();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetJobApplicationsAsync();
+    }
+
+    protected async Task NewJobApplicationAdded(JobApplicationDTO jobApplication)
+    {
+        Console.WriteLine($"New job application ({jobApplication.JobTitle}) was added to the database");
+        await GetJobApplicationsAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected void ShowAddJobApplicationModal()
+    {
+        AddJobApplicationDialog.Show();
+    }
+
+    protected void NavigateBackToCompanies()
+    {
+        NavigationManager.NavigateTo($"company/all");
+    }
+}

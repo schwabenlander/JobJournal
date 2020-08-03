@@ -5,6 +5,10 @@
 
 <tr class="@rowCssClass">
     <th scope="row">@JobApplication.JobTitle</th>
+    @if (DisplayCompanyName)
+    {
+        <td>@JobApplication.CompanyName</td>
+    }
     <td>@JobApplication.ApplicationDate.ToShortDateString()</td>
     <td>
         @if (JobApplication.ApplicationStatusId == 5)
@@ -31,6 +35,9 @@
 
     [Parameter]
     public EventCallback<bool> OnRowChanged { get; set; }
+
+    [Parameter]
+    public bool DisplayCompanyName { get; set; }
 
     protected override void OnParametersSet()
     {
