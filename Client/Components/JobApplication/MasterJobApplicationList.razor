@@ -54,7 +54,7 @@ else
 
     public async Task GetJobApplicationsAsync()
     {
-        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).Results.ToList();
+        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).Results;
     }
 
     protected override async Task OnInitializedAsync()

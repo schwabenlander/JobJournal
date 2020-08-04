@@ -9,7 +9,7 @@ namespace JobJournal.Client.Services
     public interface ICompanyDataService
     {
         Task<int> GetCompanyCountForUserAsync(Guid userId);
-        Task<IEnumerable<CompanyDTO>> GetCompaniesAsync(Guid userId);
+        Task<PaginatedResultDTO<CompanyDTO>> GetCompaniesAsync(Guid userId, int page = 1, int recordsPerPage = 20);
 
         Task<CompanyDTO> GetCompanyAsync(Guid id);
 

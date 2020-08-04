@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using JobJournal.Server.Data;
+using JobJournal.Server.Utilities;
 using JobJournal.Shared;
 using JobJournal.Shared.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -32,13 +33,25 @@ namespace JobJournal.Server.Controllers
             return Ok(await _repository.GetCompanyCountForUser(userId));
         }
 
-        // GET: api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8
+        // GET: api/company/all/9b27e7b5-1acf-42c8-919a-6394fd1ddfe8?Page=2&RecordsPerPage=20
         [HttpGet("all/{userId:Guid}")]
-        public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetAllCompanies(Guid userId)
+        public async Task<ActionResult<PaginatedResultDTO<CompanyDTO>>> GetAllCompanies([FromRoute] Guid userId, [FromQuery] PaginationDTO paginationDTO)
         {
             try 
             {
-                return Ok(await _mapper.ProjectTo<CompanyDTO>(_repository.GetCompaniesForUser(userId)).ToListAsync());
+                var companies = _repository.GetCompaniesForUser(userId).OrderBy(c => c.CompanyName);
+
+                var results = await _mapper.ProjectTo<CompanyDTO>(companies.Paginate(paginationDTO)).ToListAsync();
+
+                var response = new PaginatedResultDTO<CompanyDTO>
+                {
+                    Results = results,
+                    CurrentPage = paginationDTO.Page,
+                    RecordsPerPage = paginationDTO.RecordsPerPage,
+                    TotalRecords = await companies.CountAsync()
+                };
+
+                return Ok(response);
             }
             catch
             {

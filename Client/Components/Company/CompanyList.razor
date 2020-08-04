@@ -52,7 +52,7 @@ else
 
     protected async Task GetCompaniesAsync()
     {
-        companies = (await CompanyDataService.GetCompaniesAsync(UserId)).OrderBy(c => c.CompanyName).ToList();
+        companies = (await CompanyDataService.GetCompaniesAsync(UserId)).Results;
     }
 
     protected override async Task OnInitializedAsync()

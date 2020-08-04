@@ -63,7 +63,7 @@ else
 
     public async Task GetJobApplicationsAsync()
     {
-        JobApplications = (await JobApplicationDataService.GetJobApplicationsByCompanyAsync(CompanyId)).Results.ToList();
+        JobApplications = (await JobApplicationDataService.GetJobApplicationsByCompanyAsync(CompanyId)).Results;
     }
 
     protected override async Task OnInitializedAsync()

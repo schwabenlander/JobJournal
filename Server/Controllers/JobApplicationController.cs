@@ -69,7 +69,7 @@ namespace JobJournal.Server.Controllers
             }
         }
 
-        // GET: api/jobapplication/company/ad94a572-5104-4303-82f7-fac0a7d06897
+        // GET: api/jobapplication/company/ad94a572-5104-4303-82f7-fac0a7d06897?Page=2&RecordsPerPage=20
         [HttpGet("company/{companyId:Guid}")]
         public async Task<ActionResult<PaginatedResultDTO<JobApplicationDTO>>> GetJobApplicationsForCompany([FromRoute] Guid companyId, [FromQuery] PaginationDTO paginationDTO)
         {
