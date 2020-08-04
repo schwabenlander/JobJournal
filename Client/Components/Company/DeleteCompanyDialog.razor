@@ -46,7 +46,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        bool anyAssociatedCompanyContacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).Any();
+        bool anyAssociatedCompanyContacts = (await CompanyContactDataService.GetCompanyContactCountAsync(Company.Id)) > 0;
         bool anyAssociatedJobApplications = (await JobApplicationDataService.GetJobApplicationsByCompanyAsync(Company.Id)).Results.Any();
 
         if (anyAssociatedCompanyContacts || anyAssociatedJobApplications)

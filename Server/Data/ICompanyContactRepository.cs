@@ -12,6 +12,7 @@ namespace JobJournal.Server.Data
         IQueryable<CompanyContact> GetContactsForCompany(Guid companyId);
         Task<CompanyContact> AddCompanyContact(CompanyContact companyContact);
         Task<CompanyContact> UpdateCompanyContact(CompanyContact companyContact);
+        Task<int> GetCompanyContactCount(Guid companyId);
         Task DeleteCompanyContact(Guid contactId);
     }
 }

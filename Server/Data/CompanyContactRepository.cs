@@ -43,6 +43,11 @@ namespace JobJournal.Server.Data
             return _db.CompanyContacts.Where(c => c.CompanyId == companyId);
         }
 
+        public async Task<int> GetCompanyContactCount(Guid companyId)
+        {
+            return await _db.CompanyContacts.CountAsync(c => c.CompanyId == companyId);
+        }
+
         public async Task<CompanyContact> UpdateCompanyContact(CompanyContact companyContact)
         {
             if (companyContact == null) return null;

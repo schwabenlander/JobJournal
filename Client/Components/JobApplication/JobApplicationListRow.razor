@@ -7,7 +7,7 @@
     <th scope="row">@JobApplication.JobTitle</th>
     @if (DisplayCompanyName)
     {
-        <td>@JobApplication.CompanyName</td>
+        <td><a href="/company/@JobApplication.CompanyId">@JobApplication.CompanyName</a></td>
     }
     <td>@JobApplication.ApplicationDate.ToShortDateString()</td>
     <td>

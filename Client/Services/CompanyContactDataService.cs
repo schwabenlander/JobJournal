@@ -39,9 +39,14 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<CompanyContactDTO>($"api/companycontact/{id}");
         }
 
-        public async Task<IEnumerable<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId)
+        public async Task<int> GetCompanyContactCountAsync(Guid companyId)
         {
-            return await _httpClient.GetFromJsonAsync<List<CompanyContactDTO>>($"api/company/{companyId}/contacts");
+            return await _httpClient.GetFromJsonAsync<int>($"api/company/{companyId}/contacts/count");
+        }
+
+        public async Task<PaginatedResultDTO<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId, int page = 1, int recordsPerPage = 20)
+        {
+            return await _httpClient.GetFromJsonAsync<PaginatedResultDTO<CompanyContactDTO>>($"api/company/{companyId}/contacts?Page={page}&RecordsPerPage={recordsPerPage}");
         }
 
         public async Task UpdateCompanyContactAsync(CompanyContactDTO companyContact)

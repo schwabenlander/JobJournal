@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using JobJournal.Server.Data;
+using JobJournal.Server.Utilities;
 using JobJournal.Shared;
 using JobJournal.Shared.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -26,13 +27,25 @@ namespace JobJournal.Server.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/company/AD94A572-5104-4303-82F7-FAC0A7D06897/contacts
+        // GET: api/company/AD94A572-5104-4303-82F7-FAC0A7D06897/contacts?Page=2&RecordsPerPage=20
         [HttpGet("company/{id:Guid}/contacts")]
-        public async Task<ActionResult<IEnumerable<CompanyContactDTO>>> GetCompanyContacts(Guid id)
+        public async Task<ActionResult<PaginatedResultDTO<CompanyContactDTO>>> GetCompanyContacts([FromRoute] Guid id, [FromQuery] PaginationDTO paginationDTO)
         {
             try
             {
-                return Ok(await _mapper.ProjectTo<CompanyContactDTO>(_repository.GetContactsForCompany(id)).ToListAsync());
+                var contacts = _repository.GetContactsForCompany(id);
+                
+                var results = await _mapper.ProjectTo<CompanyContactDTO>(contacts.Paginate(paginationDTO)).ToListAsync();
+
+                var response = new PaginatedResultDTO<CompanyContactDTO>
+                {
+                    Results = results,
+                    CurrentPage = paginationDTO.Page,
+                    RecordsPerPage = paginationDTO.RecordsPerPage,
+                    TotalRecords = await contacts.CountAsync()
+                };
+
+                return Ok(response);
             }
             catch
             {
@@ -49,6 +62,21 @@ namespace JobJournal.Server.Controllers
             {
                 var contact = _repository.GetCompanyContact(id);
                 return Ok(_mapper.Map<CompanyContactDTO>(contact));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return NotFound();
+            }
+        }
+
+        // GET api/company/AD94A572-5104-4303-82F7-FAC0A7D06897/contacts/count
+        [HttpGet("company/{id:Guid}/contacts/count")]
+        public async Task<ActionResult<int>> GetCompanyContactCount(Guid id)
+        {
+            try
+            {
+                return Ok(await _repository.GetCompanyContactCount(id));
             }
             catch
             {

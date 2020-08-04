@@ -73,7 +73,7 @@ else
 
     protected async Task GetCompanyContactsAsync()
     {
-        Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).OrderBy(cc => cc.FullName).ToList();
+        Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).Results;
     }
 
     protected override async Task OnParametersSetAsync()

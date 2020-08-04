@@ -8,7 +8,9 @@ namespace JobJournal.Client.Services
 {
     public interface ICompanyContactDataService
     {
-        Task<IEnumerable<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId);
+        Task<PaginatedResultDTO<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId, int page = 1, int recordsPerPage = 20);
+
+        Task<int> GetCompanyContactCountAsync(Guid companyId);
 
         Task<CompanyContactDTO> GetCompanyContactAsync(Guid id);
 
