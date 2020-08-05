@@ -4,24 +4,20 @@
 
             <DataAnnotationsValidator />
             <div class="alert alert-info" role="alert">Please complete the form below. All fields are required.</div>
-
-            <div class="form-group">
-                <label for="companyId">Company: </label>
-                @if (CompanyId != new Guid())
-                {
-                    <span>@Company.CompanyName</span>
-                }
-                else
-                {
+            
+            @if (CompanyId == new Guid())
+            {
+                <div class="form-group">
+                    <label for="companyId">Company: </label>
                     <InputSelectGuid id="companyId" class="form-control" @bind-Value="Application.CompanyId">
                         @foreach (var company in Companies)
-                        {
+                            {
                             <option value="@company.Id">@company.CompanyName</option>
-                        }
+                            }
                     </InputSelectGuid>
                     <ValidationMessage For="@(() => Application.CompanyId)" />
-                }
-            </div>
+                </div>
+            }
 
             <div class="form-group">
                 <label for="jobTitle">Job Title: </label>

@@ -40,6 +40,8 @@
             </GenericList>
         </tbody>
     </table>
+
+    <Pagination CurrentPage="@PaginatedJobApplications.CurrentPage" Radius="2" TotalPages="@PaginatedJobApplications.TotalPages" OnPageSelected="PageSelected" />
 }
 else
 {
@@ -50,21 +52,25 @@ else
     [CascadingParameter]
     public Guid UserId { get; set; }
 
+    public PaginatedResultDTO<JobApplicationDTO> PaginatedJobApplications { get; set; }
+
     public List<JobApplicationDTO> JobApplications { get; set; }
 
     AddJobApplicationDialog AddJobApplicationDialog { get; set; }
+
+    int CurrentPage { get; set; } = 1;
 
     bool showAddJobButton { get; set; } = false;
     int companyCount;
 
     public async Task GetJobApplicationsAsync()
     {
-        companyCount = await CompanyDataService.GetCompanyCountForUserAsync(UserId);
-        JobApplications = (await JobApplicationDataService.GetJobApplicationsAsync(UserId)).Results;
+        await PageSelected(CurrentPage);
     }
 
     protected override async Task OnInitializedAsync()
     {
+        companyCount = await CompanyDataService.GetCompanyCountForUserAsync(UserId);
         await GetJobApplicationsAsync();
     }
 
@@ -79,6 +85,13 @@ else
     {
         await GetJobApplicationsAsync();
         await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task PageSelected(int page)
+    {
+        CurrentPage = page;
+        PaginatedJobApplications = await JobApplicationDataService.GetJobApplicationsAsync(UserId, page);
+        JobApplications = PaginatedJobApplications.Results;
     }
 
     protected void ShowAddJobApplicationModal()

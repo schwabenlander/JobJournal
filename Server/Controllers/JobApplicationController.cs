@@ -57,8 +57,10 @@ namespace JobJournal.Server.Controllers
                     Results = results, 
                     CurrentPage = paginationDTO.Page, 
                     RecordsPerPage = paginationDTO.RecordsPerPage, 
-                    TotalRecords = await applications.CountAsync()
+                    TotalRecords = await applications.CountAsync(),
                 };
+
+                response.TotalPages = (int)Math.Ceiling((decimal)response.TotalRecords / (decimal)response.RecordsPerPage);
 
                 return Ok(response);
             }
@@ -86,6 +88,8 @@ namespace JobJournal.Server.Controllers
                     RecordsPerPage = paginationDTO.RecordsPerPage,
                     TotalRecords = await applications.CountAsync()
                 };
+
+                response.TotalPages = (int)Math.Ceiling((decimal)response.TotalRecords / (decimal)response.RecordsPerPage);
 
                 return Ok(response);
             }

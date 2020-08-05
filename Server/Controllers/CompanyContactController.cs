@@ -45,6 +45,8 @@ namespace JobJournal.Server.Controllers
                     TotalRecords = await contacts.CountAsync()
                 };
 
+                response.TotalPages = (int)Math.Ceiling((decimal)response.TotalRecords / (decimal)response.RecordsPerPage);
+
                 return Ok(response);
             }
             catch

@@ -13,5 +13,7 @@ namespace JobJournal.Shared.DTOs
         public int RecordsPerPage { get; set; }
 
         public int CurrentPage { get; set; }
+
+        public int TotalPages { get; set; }
     }
 }

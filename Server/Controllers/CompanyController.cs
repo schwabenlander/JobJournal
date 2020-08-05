@@ -51,6 +51,8 @@ namespace JobJournal.Server.Controllers
                     TotalRecords = await companies.CountAsync()
                 };
 
+                response.TotalPages = (int)Math.Ceiling((decimal)response.TotalRecords / (decimal)response.RecordsPerPage);
+
                 return Ok(response);
             }
             catch
