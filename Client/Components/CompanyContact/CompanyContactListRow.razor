@@ -5,26 +5,7 @@
 
 <tr>
     <th scope="row">@Contact.FullName</th>
-    <td>
-        @if (string.IsNullOrEmpty(Contact.PhoneNumber))
-        {
-            <text>N/A</text>
-        }
-        else
-        {
-            <a href="tel:@Helpers.GetTelephoneDigits(Contact.PhoneNumber)">@Contact.PhoneNumber</a>
-        }
-    </td>
-    <td>
-        @if (string.IsNullOrEmpty(Contact.EmailAddress))
-        {
-            <text>N/A</text>
-        }
-        else
-        {
-            <a href="mailto:@Contact.EmailAddress">@Contact.EmailAddress</a>
-        }
-    </td>
+    <td>@Contact.JobTitle</td>
     <td>
         <button type="button" class="btn btn-primary" title="Details" @onclick="NavigateToCompanyContactDetails"><i class="fas fa-info-circle"></i></button>
         <button type="button" class="btn btn-warning" title="Edit" @onclick="Update"><i class="fas fa-pencil-alt"></i></button>

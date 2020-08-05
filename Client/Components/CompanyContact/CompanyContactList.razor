@@ -24,8 +24,7 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Email</th>
+                <th scope="col">Title</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -33,7 +32,7 @@
             <GenericList Items="Contacts">
                 <EmptyTemplate>
                     <tr>
-                        <td colspan="4" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no contacts for this company.</td>
+                        <td colspan="2" style="color:red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> You have no contacts for this company.</td>
                     </tr>
                 </EmptyTemplate>
                 <ElementTemplate Context="contact">
@@ -42,6 +41,8 @@
             </GenericList>
         </tbody>
     </table>
+
+    <Pagination CurrentPage="@PaginatedContacts.CurrentPage" Radius="2" TotalPages="@PaginatedContacts.TotalPages" OnPageSelected="PageSelected" />
 }
 else
 {
@@ -55,6 +56,10 @@ else
     [Parameter]
     public Guid CompanyId { get; set; }
 
+    PaginatedResultDTO<CompanyContactDTO> PaginatedContacts { get; set; }
+
+    int CurrentPage { get; set; } = 1;
+
     CompanyDTO Company { get; set; }
 
     AddContactDialog AddContactModal { get; set; }
@@ -66,6 +71,13 @@ else
         NavigationManager.NavigateTo($"company/all");
     }
 
+    protected async Task PageSelected(int page)
+    {
+        CurrentPage = page;
+        PaginatedContacts = await CompanyContactDataService.GetCompanyContactsAsync(CompanyId, page);
+        Contacts = PaginatedContacts.Results;
+    }
+
     protected async Task GetCompanyAsync()
     {
         Company = await CompanyDataService.GetCompanyAsync(CompanyId);
@@ -73,7 +85,7 @@ else
 
     protected async Task GetCompanyContactsAsync()
     {
-        Contacts = (await CompanyContactDataService.GetCompanyContactsAsync(Company.Id)).Results;
+        await PageSelected(CurrentPage);
     }
 
     protected override async Task OnParametersSetAsync()

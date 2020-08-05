@@ -36,6 +36,8 @@
             </GenericList>
         </tbody>
     </table>
+
+    <Pagination CurrentPage="@PaginatedCompanies.CurrentPage" Radius="2" TotalPages="@PaginatedCompanies.TotalPages" OnPageSelected="PageSelected" />
 }
 else
 {
@@ -45,14 +47,25 @@ else
 @code {
     List<CompanyDTO> companies;
 
+    int CurrentPage { get; set; } = 1;
+
+    PaginatedResultDTO<CompanyDTO> PaginatedCompanies { get; set; }
+
     AddCompanyDialog AddCompanyModal { get; set; }
 
     [CascadingParameter]
     public Guid UserId { get; set; }
 
+    protected async Task PageSelected(int page)
+    {
+        CurrentPage = page;
+        PaginatedCompanies = await CompanyDataService.GetCompaniesAsync(UserId, page);
+        companies = PaginatedCompanies.Results;
+    }
+
     protected async Task GetCompaniesAsync()
     {
-        companies = (await CompanyDataService.GetCompaniesAsync(UserId)).Results;
+        await PageSelected(CurrentPage);
     }
 
     protected override async Task OnInitializedAsync()
