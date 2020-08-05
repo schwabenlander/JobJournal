@@ -7,7 +7,20 @@
 
             <div class="form-group">
                 <label for="companyId">Company: </label>
-                <span>@Company.CompanyName</span>
+                @if (CompanyId != new Guid())
+                {
+                    <span>@Company.CompanyName</span>
+                }
+                else
+                {
+                    <InputSelectGuid id="companyId" class="form-control" @bind-Value="Application.CompanyId">
+                        @foreach (var company in Companies)
+                        {
+                            <option value="@company.Id">@company.CompanyName</option>
+                        }
+                    </InputSelectGuid>
+                    <ValidationMessage For="@(() => Application.CompanyId)" />
+                }
             </div>
 
             <div class="form-group">
@@ -76,6 +89,8 @@
 
     CompanyDTO Company { get; set; }
 
+    List<CompanyDTO> Companies { get; set; } = new List<CompanyDTO>();
+
     List<ApplicationStatusDTO> ApplicationStatuses { get; set; } = new List<ApplicationStatusDTO>();
 
     List<ApplicationMethodDTO> ApplicationMethods { get; set; } = new List<ApplicationMethodDTO>();
@@ -86,7 +101,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Company = await CompanyDataService.GetCompanyAsync(CompanyId);
+        if (CompanyId != new Guid())
+        {
+            Company = await CompanyDataService.GetCompanyAsync(CompanyId);
+        }
+        else
+        {
+            Companies = (await CompanyDataService.GetCompaniesAsync(UserId, 1, 4096)).Results;
+        }
+
         ApplicationMethods = (await JobApplicationDataService.GetApplicationMethodsAsync()).ToList();
         ApplicationStatuses = (await JobApplicationDataService.GetApplicationStatusesAsync()).ToList();
         SetDefaults();
@@ -95,7 +118,7 @@
     private void SetDefaults()
     {
         Application.ApplicationDate = DateTime.Now.Date;
-        Application.CompanyId = CompanyId;
+        Application.CompanyId = (CompanyId == new Guid()) ? Companies.First().Id : CompanyId;
         Application.ApplicationMethodId = ApplicationMethods.FirstOrDefault().Id;
         Application.ApplicationStatusId = ApplicationStatuses.FirstOrDefault().Id;
     }
