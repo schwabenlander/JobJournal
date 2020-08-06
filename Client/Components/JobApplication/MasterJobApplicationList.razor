@@ -20,11 +20,11 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Job Title</th>
-                <th scope="col">Company</th>
-                <th scope="col">Application Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
+                <th scope="col" style="width:30%">Job Title</th>
+                <th scope="col" style="width:20%">Company</th>
+                <th scope="col" style="width:13%">Application Date</th>
+                <th scope="col" style="width:12%">Status</th>
+                <th scope="col" style="width:25%">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +41,10 @@
         </tbody>
     </table>
 
+    @*<p class="text-center">
+        @((PaginatedJobApplications.CurrentPage - 1)*PaginatedJobApplications.RecordsPerPage + 1)-@(PaginatedJobApplications.CurrentPage*PaginatedJobApplications.RecordsPerPage) of 
+        @PaginatedJobApplications.TotalRecords
+    </p>*@
     <Pagination CurrentPage="@PaginatedJobApplications.CurrentPage" Radius="2" TotalPages="@PaginatedJobApplications.TotalPages" OnPageSelected="PageSelected" />
 }
 else
