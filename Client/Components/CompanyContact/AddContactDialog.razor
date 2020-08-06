@@ -1,17 +1,16 @@
 ﻿<ModalDialog @ref="Modal" ModalTitle="Add a Contact">
     <ModalContent>
         <EditForm Model="Contact" OnValidSubmit="HandleValidSubmit">
-
             <DataAnnotationsValidator />
 
             <div class="form-group">
-                <label for="fullName">Full Name: </label>
+                <label for="fullName"><span class="text-danger">*</span> Full Name: </label>
                 <InputText id="fullName" class="form-control" @bind-Value="@Contact.FullName" placeholder="Full Name"></InputText>
                 <ValidationMessage For="@(() => Contact.FullName)" />
             </div>
 
             <div class="form-group">
-                <label for="jobTitle">Job Title: </label>
+                <label for="jobTitle"><span class="text-danger">*</span> Job Title: </label>
                 <InputText id="jobTitle" class="form-control" @bind-Value="@Contact.JobTitle" placeholder="Job Title"></InputText>
                 <ValidationMessage For="@(() => Contact.JobTitle)" />
             </div>
@@ -23,7 +22,7 @@
             </div>
 
             <div class="form-group">
-                <label for="emailAddress">Email Address: </label>
+                <label for="emailAddress"><span class="text-danger">*</span> Email Address: </label>
                 <InputText id="emailAddress" class="form-control" @bind-Value="@Contact.EmailAddress" type="email" placeholder="user@company.com"></InputText>
                 <ValidationMessage For="@(() => Contact.EmailAddress)" />
             </div>
@@ -42,8 +41,12 @@
 
             <div class="form-group">
                 <label for="comments">Comments: </label>
-                <InputTextArea id="comments" class="form-control" @bind-Value="@Contact.Comments" placeholder = "Comments"></InputTextArea>
+                <InputTextArea id="comments" class="form-control" @bind-Value="@Contact.Comments" placeholder="Comments"></InputTextArea>
                 <ValidationMessage For="@(() => Contact.Comments)" />
+            </div>
+
+            <div class="alert alert-secondary" role="alert">
+                <span class="text-danger">*</span> Indicates required field
             </div>
 
             <div class="modal-footer">

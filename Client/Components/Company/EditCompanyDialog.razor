@@ -4,19 +4,19 @@
             <DataAnnotationsValidator />
 
             <div class="form-group">
-                <label for="companyName">Company Name: </label>
+                <label for="companyName"><span class="text-danger">*</span> Company Name: </label>
                 <InputText id="companyName" class="form-control" @bind-Value="@Company.CompanyName" placeholder="Company Name"></InputText>
                 <ValidationMessage For="@(() => Company.CompanyName)" />
             </div>
 
             <div class="form-group">
-                <label for="city">City: </label>
+                <label for="city"><span class="text-danger">*</span> City: </label>
                 <InputText id="city" class="form-control" @bind-Value="@Company.City" placeholder="City"></InputText>
                 <ValidationMessage For="@(() => Company.City)" />
             </div>
 
             <div class="form-group">
-                <label for="lastName">State: </label>
+                <label for="lastName"><span class="text-danger">*</span> State: </label>
                 <InputSelect id="state" class="form-control" @bind-Value="@Company.State">
                     <option>Select ...</option>
                     <option value="AL">Alabama</option>
@@ -75,8 +75,8 @@
             </div>
 
             <div class="form-group">
-                <label for="websiteUri">Website: </label>
-                <InputText id="websiteUri" class="form-control" @bind-Value="@Company.WebsiteURI" type="url" placeholder="https://"></InputText>
+                <label for="websiteUri"><span class="text-danger">*</span> Website: </label>
+                <InputText id="websiteUri" class="form-control" @bind-Value="@Company.WebsiteURI" type="url" placeholder="https://www.company.com"></InputText>
                 <ValidationMessage For="@(() => Company.WebsiteURI)" />
             </div>
 
@@ -96,6 +96,10 @@
                 <label for="comments">Comments: </label>
                 <InputTextArea id="comments" class="form-control" @bind-Value="@Company.Comments" placeholder="Comments"></InputTextArea>
                 <ValidationMessage For="@(() => Company.Comments)" />
+            </div>
+
+            <div class="alert alert-secondary" role="alert">
+                <span class="text-danger">*</span> Indicates required field
             </div>
 
             <div class="modal-footer">
