@@ -42,7 +42,14 @@
                     <strong>Method (Other):</strong>
                 </div>
                 <div class="col-lg-10">
-                    @JobApplication.OtherApplicationMethod
+                    @if (string.IsNullOrEmpty(JobApplication.OtherApplicationMethod))
+                    {
+                        <text>N/A</text>
+                    }
+                    else
+                    {
+                        @JobApplication.OtherApplicationMethod
+                    }
                 </div>
             </div>
         }
