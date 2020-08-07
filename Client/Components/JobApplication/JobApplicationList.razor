@@ -41,7 +41,12 @@
         </tbody>
     </table>
 
-    <Pagination CurrentPage="@PaginatedJobApplications.CurrentPage" Radius="2" TotalPages="@PaginatedJobApplications.TotalPages" OnPageSelected="PageSelected" />
+    <Pagination CurrentPage="@PaginatedJobApplications.CurrentPage"
+                Radius="2"
+                TotalPages="@PaginatedJobApplications.TotalPages"
+                RecordsPerPage="@PaginatedJobApplications.RecordsPerPage"
+                TotalRecords="@PaginatedJobApplications.TotalRecords"
+                OnPageSelected="PageSelected" />
 }
 else
 {

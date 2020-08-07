@@ -1,18 +1,28 @@
 ﻿@* Source: https://github.com/gavilanch/BlazorMovies/blob/master/ASP.NET%20Core%203.2/Module%206%20-%20HTTP%20and%20Entity%20Framework%20Core/End/BlazorMovies/Client/Shared/Pagination.razor *@
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        @foreach (var link in links)
-        {
-            <li @onclick="@(() => SelectedPageInternal(link))"
-                style="cursor: pointer;"
-                class="page-item @(link.Enabled ? null : "disabled") @(link.Active ? "active" : null)">
-                <span class="page-link" href="#">@link.Text</span>
-            </li>
-        }
-    </ul>
-</nav>
+@if (TotalRecords > 0)
+{
+    <p class="text-center">
+        @startRecord-@endRecord of @TotalRecords
+    </p>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @foreach (var link in links)
+            {
+                <li @onclick="@(() => SelectedPageInternal(link))"
+                    style="cursor: pointer;"
+                    class="page-item @(link.Enabled ? null : "disabled") @(link.Active ? "active" : null)">
+                    <span class="page-link" href="#">@link.Text</span>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
 @code {
+    int startRecord = 0, endRecord = 0;
+
     [Parameter]
     public int CurrentPage { get; set; }
 
@@ -21,6 +31,12 @@
 
     [Parameter]
     public int Radius { get; set; }
+
+    [Parameter]
+    public int RecordsPerPage { get; set; }
+
+    [Parameter]
+    public int TotalRecords { get; set; }
 
     [Parameter]
     public EventCallback<int> OnPageSelected { get; set; }
@@ -46,7 +62,10 @@
     protected override void OnParametersSet()
     {
         LoadPages();
-        base.OnParametersSet();
+
+        startRecord = (CurrentPage - 1) * RecordsPerPage + 1;
+        endRecord = (CurrentPage * RecordsPerPage) < TotalRecords ?
+            (CurrentPage * RecordsPerPage) : TotalRecords;
     }
 
     private void LoadPages()

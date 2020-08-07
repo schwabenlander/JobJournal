@@ -17,7 +17,7 @@ namespace JobJournal.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<PaginatedResultDTO<CompanyDTO>> GetCompaniesAsync(Guid userId, int page = 1, int recordsPerPage = 20)
+        public async Task<PaginatedResultDTO<CompanyDTO>> GetCompaniesAsync(Guid userId, int page = 1, int recordsPerPage = 10)
         {
             return await _httpClient.GetFromJsonAsync<PaginatedResultDTO<CompanyDTO>>($"api/company/all/{userId}?Page={page}&RecordsPerPage={recordsPerPage}");
         }

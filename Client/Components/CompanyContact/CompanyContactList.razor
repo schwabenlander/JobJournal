@@ -42,7 +42,12 @@
         </tbody>
     </table>
 
-    <Pagination CurrentPage="@PaginatedContacts.CurrentPage" Radius="2" TotalPages="@PaginatedContacts.TotalPages" OnPageSelected="PageSelected" />
+    <Pagination CurrentPage="@PaginatedContacts.CurrentPage"
+                Radius="2"
+                TotalPages="@PaginatedContacts.TotalPages"
+                RecordsPerPage="@PaginatedContacts.RecordsPerPage"
+                TotalRecords="@PaginatedContacts.TotalRecords"
+                OnPageSelected="PageSelected" />
 }
 else
 {

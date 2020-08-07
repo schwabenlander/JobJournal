@@ -44,7 +44,7 @@ namespace JobJournal.Client.Services
             return await _httpClient.GetFromJsonAsync<int>($"api/company/{companyId}/contacts/count");
         }
 
-        public async Task<PaginatedResultDTO<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId, int page = 1, int recordsPerPage = 20)
+        public async Task<PaginatedResultDTO<CompanyContactDTO>> GetCompanyContactsAsync(Guid companyId, int page = 1, int recordsPerPage = 10)
         {
             return await _httpClient.GetFromJsonAsync<PaginatedResultDTO<CompanyContactDTO>>($"api/company/{companyId}/contacts?Page={page}&RecordsPerPage={recordsPerPage}");
         }

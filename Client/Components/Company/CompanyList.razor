@@ -37,7 +37,12 @@
         </tbody>
     </table>
 
-    <Pagination CurrentPage="@PaginatedCompanies.CurrentPage" Radius="2" TotalPages="@PaginatedCompanies.TotalPages" OnPageSelected="PageSelected" />
+    <Pagination CurrentPage="@PaginatedCompanies.CurrentPage"
+                Radius="2"
+                TotalPages="@PaginatedCompanies.TotalPages"
+                RecordsPerPage="@PaginatedCompanies.RecordsPerPage"
+                TotalRecords="@PaginatedCompanies.TotalRecords"
+                OnPageSelected="PageSelected" />
 }
 else
 {
