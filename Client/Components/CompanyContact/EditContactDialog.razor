@@ -41,9 +41,9 @@
             </div>
 
             <div class="form-group">
-                <label for="comments">Comments: </label>
-                <InputTextArea id="comments" class="form-control" @bind-Value="@Contact.Comments" placeholder="Comments"></InputTextArea>
-                <ValidationMessage For="@(() => Contact.Comments)" />
+                <label for="Notes">Notes: </label>
+                <InputTextArea id="Notes" class="form-control" @bind-Value="@Contact.Notes" placeholder="Notes"></InputTextArea>
+                <ValidationMessage For="@(() => Contact.Notes)" />
             </div>
 
             <div class="alert alert-secondary" role="alert">

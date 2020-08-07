@@ -59,7 +59,7 @@ namespace JobJournal.Server.Data
             contactToUpdate.PhoneNumber = companyContact.PhoneNumber;
             contactToUpdate.FirstContactDate = companyContact.FirstContactDate;
             contactToUpdate.MostRecentContactDate = companyContact.MostRecentContactDate;
-            contactToUpdate.Comments = companyContact.Comments;
+            contactToUpdate.Notes = companyContact.Notes;
 
             var updatedContact = _db.CompanyContacts.Update(contactToUpdate);
             await _db.SaveChangesAsync();

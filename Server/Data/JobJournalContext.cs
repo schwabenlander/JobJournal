@@ -57,8 +57,8 @@ namespace JobJournal.Server.Data
                 EmailAddress = "sean@schwabenlander.com",
                 City = "Muscatine",
                 State = "IA",
-                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"), 
-                Comments = "Great company to work for."
+                UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"),
+                Notes = "Great company to work for."
             });
 
             modelBuilder.Entity<CompanyContact>().HasData(new CompanyContact
@@ -71,7 +71,7 @@ namespace JobJournal.Server.Data
                 PhoneNumber = "(612) 810-4212",
                 FirstContactDate = new DateTime(2020, 06, 01),
                 UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"),
-                Comments = "Sean's a great guy and a handsome fellow."
+                Notes = "Sean's a great guy and a handsome fellow."
             });
 
             modelBuilder.Entity<JobApplication>().HasData(new JobApplication
@@ -83,7 +83,7 @@ namespace JobJournal.Server.Data
                 ApplicationMethodId = 3,
                 ApplicationStatusId = 1,
                 UserId = Guid.Parse("9b27e7b5-1acf-42c8-919a-6394fd1ddfe8"),
-                Comments = "This is my dream job."
+                Notes = "This is my dream job."
             });
 
         }

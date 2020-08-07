@@ -39,6 +39,9 @@ namespace JobJournal.Shared.DTOs
         [Display(Name = "Application Status")]
         public string ApplicationStatus { get; set; }
 
-        public string Comments { get; set; }
+        [Display(Name = "Other Application Method")]
+        public string OtherApplicationMethod { get; set; }
+
+        public string Notes { get; set; }
     }
 }

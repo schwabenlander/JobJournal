@@ -25,7 +25,7 @@ namespace JobJournal.Shared
 
         public string PhoneNumber { get; set; }
 
-        public string Comments { get; set; }
+        public string Notes { get; set; }
 
         public string EmailAddress { get; set; }
 

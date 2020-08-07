@@ -26,6 +26,15 @@
                 <ValidationMessage For="@(() => JobApplication.ApplicationMethodId)" />
             </div>
 
+            @if (JobApplication.ApplicationMethodId == 9)
+            {
+                <div class="form-group">
+                    <label for="otherMethod"><span class="text-danger">*</span>  Method (Other): </label>
+                    <InputText id="otherMethod" class="form-control" @bind-Value="JobApplication.OtherApplicationMethod" placeholder="Please specify"></InputText>
+                    <ValidationMessage For="@(() => JobApplication.OtherApplicationMethod)" />
+                </div>
+            }
+
             <div class="form-group">
                 <label for="statusId"><span class="text-danger">*</span> Status: </label>
                 <InputSelectNumber id="statusId" class="form-control" @bind-Value="JobApplication.ApplicationStatusId">
@@ -38,9 +47,9 @@
             </div>
 
             <div class="form-group">
-                <label for="comments">Comments: </label>
-                <InputTextArea id="comments" class="form-control" @bind-Value="JobApplication.Comments" placeholder="Comments"></InputTextArea>
-                <ValidationMessage For="@(() => JobApplication.Comments)" />
+                <label for="Notes">Notes: </label>
+                <InputTextArea id="Notes" class="form-control" @bind-Value="JobApplication.Notes" placeholder="Notes"></InputTextArea>
+                <ValidationMessage For="@(() => JobApplication.Notes)" />
             </div>
 
             <div class="alert alert-secondary" role="alert">

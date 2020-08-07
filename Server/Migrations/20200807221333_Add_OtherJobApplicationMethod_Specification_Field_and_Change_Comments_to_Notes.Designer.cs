@@ -4,14 +4,16 @@ using JobJournal.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobJournal.Server.Migrations
 {
     [DbContext(typeof(JobJournalContext))]
-    partial class JobJournalContextModelSnapshot : ModelSnapshot
+    [Migration("20200807221333_Add_OtherJobApplicationMethod_Specification_Field_and_Change_Comments_to_Notes")]
+    partial class Add_OtherJobApplicationMethod_Specification_Field_and_Change_Comments_to_Notes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

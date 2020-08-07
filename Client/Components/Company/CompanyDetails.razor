@@ -69,16 +69,16 @@
 
         <div class="row">
             <div class="col-lg-2">
-                <strong>Comments:</strong>
+                <strong>Notes:</strong>
             </div>
             <div class="col-lg-10">
-                @if (String.IsNullOrEmpty(Company.Comments))
+                @if (String.IsNullOrEmpty(Company.Notes))
                 {
                     <text>N/A</text>
                 }
                 else
                 {
-                    @Company.Comments
+                    @Company.Notes
                 }
             </div>
         </div>

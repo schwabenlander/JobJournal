@@ -36,7 +36,7 @@ namespace JobJournal.Shared.DTOs
         [StringLength(128)]
         public string EmailAddress { get; set; }
 
-        public string Comments { get; set; }
+        public string Notes { get; set; }
 
         [Display(Name = "First Contact")]
         [DataType(DataType.Date)]

@@ -94,9 +94,9 @@
             </div>
 
             <div class="form-group">
-                <label for="comments">Comments: </label>
-                <InputTextArea id="comments" class="form-control" @bind-Value="@Company.Comments" placeholder="Comments"></InputTextArea>
-                <ValidationMessage For="@(() => Company.Comments)" />
+                <label for="Notes">Notes: </label>
+                <InputTextArea id="Notes" class="form-control" @bind-Value="@Company.Notes" placeholder="Notes"></InputTextArea>
+                <ValidationMessage For="@(() => Company.Notes)" />
             </div>
 
             <div class="alert alert-secondary" role="alert">

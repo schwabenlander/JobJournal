@@ -35,6 +35,18 @@
             </div>
         </div>
 
+        @if (JobApplication.ApplicationMethodId == 9)
+        {
+            <div class="row">
+                <div class="col-lg-2">
+                    <strong>Method (Other):</strong>
+                </div>
+                <div class="col-lg-10">
+                    @JobApplication.OtherApplicationMethod
+                </div>
+            </div>
+        }
+
         <div class="row">
             <div class="col-lg-2">
                 <strong>Status:</strong>
@@ -50,16 +62,16 @@
 
         <div class="row">
             <div class="col-lg-2">
-                <strong>Comments:</strong>
+                <strong>Notes:</strong>
             </div>
             <div class="col-lg-10">
-                @if (string.IsNullOrEmpty(JobApplication.Comments))
+                @if (string.IsNullOrEmpty(JobApplication.Notes))
                 {
                     <text>N/A</text>
                 }
                 else
                 {
-                    @JobApplication.Comments
+                    @JobApplication.Notes
                 }
             </div>
         </div>
