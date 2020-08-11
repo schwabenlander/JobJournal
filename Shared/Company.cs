@@ -16,7 +16,6 @@ namespace JobJournal.Shared
         [Required]
         public string CompanyName { get; set; }
 
-        [Required]
         public string WebsiteURI { get; set; }
 
         public string PhoneNumber { get; set; }

@@ -17,7 +17,6 @@ namespace JobJournal.Shared.DTOs
         [StringLength(50)]
         public string CompanyName { get; set; }
 
-        [Required(ErrorMessage = "Website is required")]
         [Display(Name = "Website Address")]
         [DataType(DataType.Url)]
         [StringLength(128)]
@@ -37,7 +36,6 @@ namespace JobJournal.Shared.DTOs
         [StringLength(50)]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "State is required")]
         [StringLength(2)]
         [Display(Name = "State")]
         public string State { get; set; }

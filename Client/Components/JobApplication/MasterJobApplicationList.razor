@@ -14,6 +14,9 @@
             <button type="button" class="btn btn-primary" @onclick="ShowAddJobApplicationModal">
                 <i class="fas fa-plus"></i> Add a Job Application
             </button>
+            <button type="button" class="btn btn-outline-primary" @onclick="DownloadCsv">
+                <i class="fas fa-cloud-download-alt"></i> Download as CSV
+            </button>
         </div>
     }
 
@@ -107,5 +110,11 @@ else
     protected void NavigateBackToCompanies()
     {
         NavigationManager.NavigateTo($"company/all");
+    }
+
+    protected void DownloadCsv()
+    {
+        Console.WriteLine("Downloading CSV...");
+        NavigationManager.NavigateTo($"api/jobapplication/user/{UserId}/csv");
     }
 }

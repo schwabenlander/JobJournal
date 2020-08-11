@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group">
-                <label for="lastName"><span class="text-danger">*</span> State: </label>
+                <label for="lastName">State: </label>
                 <InputSelect id="state" class="form-control" @bind-Value="@Company.State">
                     <option>Select ...</option>
                     <option value="AL">Alabama</option>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="form-group">
-                <label for="websiteUri"><span class="text-danger">*</span> Website: </label>
+                <label for="websiteUri">Website: </label>
                 <InputText id="websiteUri" class="form-control" @bind-Value="@Company.WebsiteURI" type="url" placeholder="https://www.company.com"></InputText>
                 <ValidationMessage For="@(() => Company.WebsiteURI)" />
             </div>

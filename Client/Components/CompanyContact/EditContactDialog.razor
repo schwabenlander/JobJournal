@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label for="emailAddress"><span class="text-danger">*</span> Email Address: </label>
+                <label for="emailAddress">Email Address: </label>
                 <InputText id="emailAddress" class="form-control" @bind-Value="@Contact.EmailAddress" type="email" placeholder="user@company.com"></InputText>
                 <ValidationMessage For="@(() => Contact.EmailAddress)" />
             </div>

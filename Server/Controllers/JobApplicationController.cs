@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CsvHelper;
 using JobJournal.Client;
 using JobJournal.Server.Data;
 using JobJournal.Server.Utilities;
@@ -34,6 +37,34 @@ namespace JobJournal.Server.Controllers
             try
             {
                 return Ok(await _repository.GetJobApplicationCountForUser(userId));
+            }
+            catch
+            {
+                // TODO: Log exception
+                return BadRequest();
+            }
+        }
+
+        // GET: api/jobapplication/user/9B27E7B5-1ACF-42C8-919A-6394FD1DDFE8/csv
+        [HttpGet("user/{userId:Guid}/csv")]
+        public async Task<IActionResult> ExportToCsv([FromRoute] Guid userId)
+        {
+            try
+            {
+                var applications = _repository.GetJobApplicationsForUser(userId).OrderByDescending(j => j.ApplicationDate);
+
+                var results = await _mapper.ProjectTo<JobApplicationDTO>(applications).ToListAsync();
+
+                var stream = new MemoryStream();
+
+                using (var writer = new StreamWriter(stream, leaveOpen: true))
+                {
+                    var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+                    csv.WriteRecords(results);
+                }
+
+                stream.Position = 0;
+                return File(stream, "text/csv", "jobapplications.csv");
             }
             catch
             {
